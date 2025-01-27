@@ -1,0 +1,426 @@
+[gd_resource type="Resource" script_class="Deck" load_steps=108 format=3 uid="uid://cl628ght42gh6"]
+
+[ext_resource type="Script" path="res://deck_manager/resources/deck.gd" id="1_6suaw"]
+[ext_resource type="Texture2D" uid="uid://b72brkk6ux11p" path="res://deck_manager/resources/images/cards/cardBack_red5.png" id="1_8wwds"]
+[ext_resource type="Script" path="res://deck_manager/resources/cards/card.gd" id="1_modwy"]
+[ext_resource type="Texture2D" uid="uid://beefxf706ulnd" path="res://deck_manager/resources/images/cards/cardHeartsA.png" id="2_kmptu"]
+[ext_resource type="Texture2D" uid="uid://hfogu8pyi8au" path="res://deck_manager/resources/images/cards/cardHearts2.png" id="4_3cm17"]
+[ext_resource type="Texture2D" uid="uid://cnuvh1os1kow5" path="res://deck_manager/resources/images/cards/cardHearts3.png" id="5_l4bcp"]
+[ext_resource type="Texture2D" uid="uid://cwrs48in5fqit" path="res://deck_manager/resources/images/cards/cardHearts4.png" id="6_73vkd"]
+[ext_resource type="Texture2D" uid="uid://csj6dkby1d2os" path="res://deck_manager/resources/images/cards/cardHearts5.png" id="7_nqled"]
+[ext_resource type="Texture2D" uid="uid://d00vkmow3plqk" path="res://deck_manager/resources/images/cards/cardHearts6.png" id="8_8aht7"]
+[ext_resource type="Texture2D" uid="uid://bomi72t18h1qx" path="res://deck_manager/resources/images/cards/cardHearts7.png" id="9_vah7i"]
+[ext_resource type="Texture2D" uid="uid://c1pedhayemman" path="res://deck_manager/resources/images/cards/cardHearts8.png" id="10_o1anr"]
+[ext_resource type="Texture2D" uid="uid://daiawqr3pj2fe" path="res://deck_manager/resources/images/cards/cardHearts9.png" id="11_fnfps"]
+[ext_resource type="Texture2D" uid="uid://bi11j2p3qam1m" path="res://deck_manager/resources/images/cards/cardHearts10.png" id="12_vjmol"]
+[ext_resource type="Texture2D" uid="uid://e7p4hxnmw56t" path="res://deck_manager/resources/images/cards/cardHeartsJ.png" id="13_fcvj8"]
+[ext_resource type="Texture2D" uid="uid://cuwvuxb0h2plp" path="res://deck_manager/resources/images/cards/cardHeartsQ.png" id="14_u7b1o"]
+[ext_resource type="Texture2D" uid="uid://dsiygoxjvmie3" path="res://deck_manager/resources/images/cards/cardHeartsK.png" id="15_vtd0v"]
+[ext_resource type="Texture2D" uid="uid://iercndmrwm1e" path="res://deck_manager/resources/images/cards/cardSpadesA.png" id="16_g51u6"]
+[ext_resource type="Texture2D" uid="uid://drpuyhtkg8scl" path="res://deck_manager/resources/images/cards/cardSpades2.png" id="17_rbg2c"]
+[ext_resource type="Texture2D" uid="uid://cdnjg33taxor" path="res://deck_manager/resources/images/cards/cardSpades3.png" id="18_11pex"]
+[ext_resource type="Texture2D" uid="uid://bi4x8ml8ee4st" path="res://deck_manager/resources/images/cards/cardSpades4.png" id="19_uaenb"]
+[ext_resource type="Texture2D" uid="uid://h1amom3is8kq" path="res://deck_manager/resources/images/cards/cardSpades5.png" id="20_tqy3h"]
+[ext_resource type="Texture2D" uid="uid://biie1oh37yshg" path="res://deck_manager/resources/images/cards/cardSpades6.png" id="21_mycvb"]
+[ext_resource type="Texture2D" uid="uid://b6i2f1ypbtnow" path="res://deck_manager/resources/images/cards/cardSpades7.png" id="22_om0v4"]
+[ext_resource type="Texture2D" uid="uid://dn3becawuivt3" path="res://deck_manager/resources/images/cards/cardSpades8.png" id="23_twrao"]
+[ext_resource type="Texture2D" uid="uid://djir6ilaxjmu4" path="res://deck_manager/resources/images/cards/cardSpades9.png" id="24_8gmm6"]
+[ext_resource type="Texture2D" uid="uid://8f58s1212lvb" path="res://deck_manager/resources/images/cards/cardSpades10.png" id="25_nf18y"]
+[ext_resource type="Texture2D" uid="uid://c38lqd5o5yrla" path="res://deck_manager/resources/images/cards/cardSpadesJ.png" id="26_neb66"]
+[ext_resource type="Texture2D" uid="uid://ds3l4i02fkxct" path="res://deck_manager/resources/images/cards/cardSpadesQ.png" id="27_j2o71"]
+[ext_resource type="Texture2D" uid="uid://tpywbygimcu4" path="res://deck_manager/resources/images/cards/cardSpadesK.png" id="28_2mpn8"]
+[ext_resource type="Texture2D" uid="uid://cit0khubox31g" path="res://deck_manager/resources/images/cards/cardDiamondsA.png" id="29_xls22"]
+[ext_resource type="Texture2D" uid="uid://duk6poqaqtw0f" path="res://deck_manager/resources/images/cards/cardDiamonds2.png" id="30_mgxar"]
+[ext_resource type="Texture2D" uid="uid://b8vrlbut77wcq" path="res://deck_manager/resources/images/cards/cardDiamonds3.png" id="31_5day8"]
+[ext_resource type="Texture2D" uid="uid://ifysvf8he38j" path="res://deck_manager/resources/images/cards/cardDiamonds4.png" id="32_c3m7m"]
+[ext_resource type="Texture2D" uid="uid://3bsssdbf02kd" path="res://deck_manager/resources/images/cards/cardDiamonds5.png" id="33_u7r32"]
+[ext_resource type="Texture2D" uid="uid://eh3nbjyx2f2a" path="res://deck_manager/resources/images/cards/cardDiamonds6.png" id="34_coxqp"]
+[ext_resource type="Texture2D" uid="uid://54wirjkouc1h" path="res://deck_manager/resources/images/cards/cardDiamonds7.png" id="35_kcoar"]
+[ext_resource type="Texture2D" uid="uid://5k7ijv2q74tq" path="res://deck_manager/resources/images/cards/cardDiamonds8.png" id="36_sx32k"]
+[ext_resource type="Texture2D" uid="uid://bs048w3uwbewt" path="res://deck_manager/resources/images/cards/cardDiamonds9.png" id="37_5v2hb"]
+[ext_resource type="Texture2D" uid="uid://p8q8ysw6mckj" path="res://deck_manager/resources/images/cards/cardDiamonds10.png" id="38_oy4fx"]
+[ext_resource type="Texture2D" uid="uid://21pqdpj8vw3n" path="res://deck_manager/resources/images/cards/cardDiamondsJ.png" id="39_rqxax"]
+[ext_resource type="Texture2D" uid="uid://putvyuhpk28a" path="res://deck_manager/resources/images/cards/cardDiamondsQ.png" id="40_25cxv"]
+[ext_resource type="Texture2D" uid="uid://c37khbbmsdjys" path="res://deck_manager/resources/images/cards/cardDiamondsK.png" id="41_kqudd"]
+[ext_resource type="Texture2D" uid="uid://4wkhlwpkxa3g" path="res://deck_manager/resources/images/cards/cardClubsA.png" id="42_be8gl"]
+[ext_resource type="Texture2D" uid="uid://b50hhgsbkbwfl" path="res://deck_manager/resources/images/cards/cardClubs2.png" id="43_bvmde"]
+[ext_resource type="Texture2D" uid="uid://cbob6pdllivem" path="res://deck_manager/resources/images/cards/cardClubs3.png" id="44_sfwmx"]
+[ext_resource type="Texture2D" uid="uid://6o2bpbxdo78y" path="res://deck_manager/resources/images/cards/cardClubs4.png" id="45_b5yin"]
+[ext_resource type="Texture2D" uid="uid://oksi4xgui4jn" path="res://deck_manager/resources/images/cards/cardClubs5.png" id="46_f3edo"]
+[ext_resource type="Texture2D" uid="uid://4vjlwjptrwtw" path="res://deck_manager/resources/images/cards/cardClubs6.png" id="47_ob10h"]
+[ext_resource type="Texture2D" uid="uid://dp0a01hj5dulr" path="res://deck_manager/resources/images/cards/cardClubs7.png" id="48_t8cjr"]
+[ext_resource type="Texture2D" uid="uid://dxybg6o26nkj6" path="res://deck_manager/resources/images/cards/cardClubs8.png" id="49_c6g2v"]
+[ext_resource type="Texture2D" uid="uid://oi1l7s7nu1r8" path="res://deck_manager/resources/images/cards/cardClubs9.png" id="50_f2u43"]
+[ext_resource type="Texture2D" uid="uid://g05n668pcdet" path="res://deck_manager/resources/images/cards/cardClubs10.png" id="51_7y8jw"]
+[ext_resource type="Texture2D" uid="uid://uh1wqq623x67" path="res://deck_manager/resources/images/cards/cardClubsJ.png" id="52_16pi7"]
+[ext_resource type="Texture2D" uid="uid://buysr3tcwfr3l" path="res://deck_manager/resources/images/cards/cardClubsQ.png" id="53_8ur0x"]
+[ext_resource type="Texture2D" uid="uid://cawhulk38gu7x" path="res://deck_manager/resources/images/cards/cardClubsK.png" id="54_tsu6w"]
+
+[sub_resource type="Resource" id="Resource_1ifpn"]
+script = ExtResource("1_modwy")
+card_name = "Ace"
+suit = 0
+value = 1
+card_image = ExtResource("2_kmptu")
+
+[sub_resource type="Resource" id="Resource_fxf2x"]
+script = ExtResource("1_modwy")
+card_name = "Two"
+suit = 0
+value = 2
+card_image = ExtResource("4_3cm17")
+
+[sub_resource type="Resource" id="Resource_6sm5y"]
+script = ExtResource("1_modwy")
+card_name = "Three"
+suit = 0
+value = 3
+card_image = ExtResource("5_l4bcp")
+
+[sub_resource type="Resource" id="Resource_n8i1x"]
+script = ExtResource("1_modwy")
+card_name = "Four"
+suit = 0
+value = 4
+card_image = ExtResource("6_73vkd")
+
+[sub_resource type="Resource" id="Resource_31fbd"]
+script = ExtResource("1_modwy")
+card_name = "Five"
+suit = 0
+value = 5
+card_image = ExtResource("7_nqled")
+
+[sub_resource type="Resource" id="Resource_mtv2f"]
+script = ExtResource("1_modwy")
+card_name = "Six"
+suit = 0
+value = 6
+card_image = ExtResource("8_8aht7")
+
+[sub_resource type="Resource" id="Resource_una6q"]
+script = ExtResource("1_modwy")
+card_name = "Seven"
+suit = 0
+value = 7
+card_image = ExtResource("9_vah7i")
+
+[sub_resource type="Resource" id="Resource_4un0w"]
+script = ExtResource("1_modwy")
+card_name = "Eight"
+suit = 0
+value = 8
+card_image = ExtResource("10_o1anr")
+
+[sub_resource type="Resource" id="Resource_xyism"]
+script = ExtResource("1_modwy")
+card_name = "Nine"
+suit = 0
+value = 9
+card_image = ExtResource("11_fnfps")
+
+[sub_resource type="Resource" id="Resource_603mg"]
+script = ExtResource("1_modwy")
+card_name = "Ten"
+suit = 0
+value = 10
+card_image = ExtResource("12_vjmol")
+
+[sub_resource type="Resource" id="Resource_y3eai"]
+script = ExtResource("1_modwy")
+card_name = "Jack"
+suit = 0
+value = 11
+card_image = ExtResource("13_fcvj8")
+
+[sub_resource type="Resource" id="Resource_p4vjp"]
+script = ExtResource("1_modwy")
+card_name = "Queen"
+suit = 0
+value = 12
+card_image = ExtResource("14_u7b1o")
+
+[sub_resource type="Resource" id="Resource_710i5"]
+script = ExtResource("1_modwy")
+card_name = "King"
+suit = 0
+value = 13
+card_image = ExtResource("15_vtd0v")
+
+[sub_resource type="Resource" id="Resource_eb07j"]
+script = ExtResource("1_modwy")
+card_name = "Ace"
+suit = 1
+value = 1
+card_image = ExtResource("16_g51u6")
+
+[sub_resource type="Resource" id="Resource_mw6dm"]
+script = ExtResource("1_modwy")
+card_name = "Two"
+suit = 1
+value = 2
+card_image = ExtResource("17_rbg2c")
+
+[sub_resource type="Resource" id="Resource_tymy2"]
+script = ExtResource("1_modwy")
+card_name = "Three"
+suit = 1
+value = 3
+card_image = ExtResource("18_11pex")
+
+[sub_resource type="Resource" id="Resource_qahjp"]
+script = ExtResource("1_modwy")
+card_name = "Four"
+suit = 1
+value = 4
+card_image = ExtResource("19_uaenb")
+
+[sub_resource type="Resource" id="Resource_ggvni"]
+script = ExtResource("1_modwy")
+card_name = "Five"
+suit = 1
+value = 5
+card_image = ExtResource("20_tqy3h")
+
+[sub_resource type="Resource" id="Resource_3v7bp"]
+script = ExtResource("1_modwy")
+card_name = "Six"
+suit = 1
+value = 6
+card_image = ExtResource("21_mycvb")
+
+[sub_resource type="Resource" id="Resource_rviuw"]
+script = ExtResource("1_modwy")
+card_name = "Seven"
+suit = 1
+value = 7
+card_image = ExtResource("22_om0v4")
+
+[sub_resource type="Resource" id="Resource_malhn"]
+script = ExtResource("1_modwy")
+card_name = "Eight"
+suit = 1
+value = 8
+card_image = ExtResource("23_twrao")
+
+[sub_resource type="Resource" id="Resource_1unk4"]
+script = ExtResource("1_modwy")
+card_name = "Nine"
+suit = 1
+value = 9
+card_image = ExtResource("24_8gmm6")
+
+[sub_resource type="Resource" id="Resource_afsd0"]
+script = ExtResource("1_modwy")
+card_name = "Ten"
+suit = 1
+value = 10
+card_image = ExtResource("25_nf18y")
+
+[sub_resource type="Resource" id="Resource_ph7wu"]
+script = ExtResource("1_modwy")
+card_name = "Jack"
+suit = 1
+value = 11
+card_image = ExtResource("26_neb66")
+
+[sub_resource type="Resource" id="Resource_qxnnq"]
+script = ExtResource("1_modwy")
+card_name = "Queen"
+suit = 1
+value = 12
+card_image = ExtResource("27_j2o71")
+
+[sub_resource type="Resource" id="Resource_4fflm"]
+script = ExtResource("1_modwy")
+card_name = "King"
+suit = 1
+value = 13
+card_image = ExtResource("28_2mpn8")
+
+[sub_resource type="Resource" id="Resource_j43d8"]
+script = ExtResource("1_modwy")
+card_name = "Ace"
+suit = 2
+value = 1
+card_image = ExtResource("29_xls22")
+
+[sub_resource type="Resource" id="Resource_mvm07"]
+script = ExtResource("1_modwy")
+card_name = "Two"
+suit = 2
+value = 2
+card_image = ExtResource("30_mgxar")
+
+[sub_resource type="Resource" id="Resource_2ytxb"]
+script = ExtResource("1_modwy")
+card_name = "Three"
+suit = 2
+value = 3
+card_image = ExtResource("31_5day8")
+
+[sub_resource type="Resource" id="Resource_x2fef"]
+script = ExtResource("1_modwy")
+card_name = "Four"
+suit = 2
+value = 4
+card_image = ExtResource("32_c3m7m")
+
+[sub_resource type="Resource" id="Resource_0ejt6"]
+script = ExtResource("1_modwy")
+card_name = "Five"
+suit = 2
+value = 5
+card_image = ExtResource("33_u7r32")
+
+[sub_resource type="Resource" id="Resource_0j8wj"]
+script = ExtResource("1_modwy")
+card_name = "Six"
+suit = 2
+value = 6
+card_image = ExtResource("34_coxqp")
+
+[sub_resource type="Resource" id="Resource_awt26"]
+script = ExtResource("1_modwy")
+card_name = "Seven"
+suit = 2
+value = 7
+card_image = ExtResource("35_kcoar")
+
+[sub_resource type="Resource" id="Resource_fp45h"]
+script = ExtResource("1_modwy")
+card_name = "Eight"
+suit = 2
+value = 8
+card_image = ExtResource("36_sx32k")
+
+[sub_resource type="Resource" id="Resource_ux7ho"]
+script = ExtResource("1_modwy")
+card_name = "Nine"
+suit = 2
+value = 9
+card_image = ExtResource("37_5v2hb")
+
+[sub_resource type="Resource" id="Resource_h0log"]
+script = ExtResource("1_modwy")
+card_name = "Ten"
+suit = 2
+value = 10
+card_image = ExtResource("38_oy4fx")
+
+[sub_resource type="Resource" id="Resource_t5puc"]
+script = ExtResource("1_modwy")
+card_name = "Jack"
+suit = 2
+value = 11
+card_image = ExtResource("39_rqxax")
+
+[sub_resource type="Resource" id="Resource_cm3nd"]
+script = ExtResource("1_modwy")
+card_name = "Queen"
+suit = 2
+value = 12
+card_image = ExtResource("40_25cxv")
+
+[sub_resource type="Resource" id="Resource_4fi6w"]
+script = ExtResource("1_modwy")
+card_name = "King"
+suit = 2
+value = 13
+card_image = ExtResource("41_kqudd")
+
+[sub_resource type="Resource" id="Resource_i6xda"]
+script = ExtResource("1_modwy")
+card_name = "Ace"
+suit = 3
+value = 1
+card_image = ExtResource("42_be8gl")
+
+[sub_resource type="Resource" id="Resource_ilxlj"]
+script = ExtResource("1_modwy")
+card_name = "Two"
+suit = 3
+value = 2
+card_image = ExtResource("43_bvmde")
+
+[sub_resource type="Resource" id="Resource_grpsr"]
+script = ExtResource("1_modwy")
+card_name = "Three"
+suit = 3
+value = 3
+card_image = ExtResource("44_sfwmx")
+
+[sub_resource type="Resource" id="Resource_xtpfx"]
+script = ExtResource("1_modwy")
+card_name = "Four"
+suit = 3
+value = 4
+card_image = ExtResource("45_b5yin")
+
+[sub_resource type="Resource" id="Resource_5w27q"]
+script = ExtResource("1_modwy")
+card_name = "Five"
+suit = 3
+value = 5
+card_image = ExtResource("46_f3edo")
+
+[sub_resource type="Resource" id="Resource_gtq0a"]
+script = ExtResource("1_modwy")
+card_name = "Six"
+suit = 3
+value = 6
+card_image = ExtResource("47_ob10h")
+
+[sub_resource type="Resource" id="Resource_qdy8x"]
+script = ExtResource("1_modwy")
+card_name = "Seven"
+suit = 3
+value = 7
+card_image = ExtResource("48_t8cjr")
+
+[sub_resource type="Resource" id="Resource_bohrp"]
+script = ExtResource("1_modwy")
+card_name = "Eight"
+suit = 3
+value = 8
+card_image = ExtResource("49_c6g2v")
+
+[sub_resource type="Resource" id="Resource_twj2k"]
+script = ExtResource("1_modwy")
+card_name = "Nine"
+suit = 3
+value = 9
+card_image = ExtResource("50_f2u43")
+
+[sub_resource type="Resource" id="Resource_f80lr"]
+script = ExtResource("1_modwy")
+card_name = "Ten"
+suit = 3
+value = 10
+card_image = ExtResource("51_7y8jw")
+
+[sub_resource type="Resource" id="Resource_ogofi"]
+script = ExtResource("1_modwy")
+card_name = "Jack"
+suit = 3
+value = 11
+card_image = ExtResource("52_16pi7")
+
+[sub_resource type="Resource" id="Resource_up8m6"]
+script = ExtResource("1_modwy")
+card_name = "Queen"
+suit = 3
+value = 12
+card_image = ExtResource("53_8ur0x")
+
+[sub_resource type="Resource" id="Resource_1tj30"]
+script = ExtResource("1_modwy")
+card_name = "King"
+suit = 3
+value = 13
+card_image = ExtResource("54_tsu6w")
+
+[resource]
+script = ExtResource("1_6suaw")
+cards = Array[ExtResource("1_modwy")]([SubResource("Resource_1ifpn"), SubResource("Resource_fxf2x"), SubResource("Resource_6sm5y"), SubResource("Resource_n8i1x"), SubResource("Resource_31fbd"), SubResource("Resource_mtv2f"), SubResource("Resource_una6q"), SubResource("Resource_4un0w"), SubResource("Resource_xyism"), SubResource("Resource_603mg"), SubResource("Resource_y3eai"), SubResource("Resource_p4vjp"), SubResource("Resource_710i5"), SubResource("Resource_eb07j"), SubResource("Resource_mw6dm"), SubResource("Resource_tymy2"), SubResource("Resource_qahjp"), SubResource("Resource_ggvni"), SubResource("Resource_3v7bp"), SubResource("Resource_rviuw"), SubResource("Resource_malhn"), SubResource("Resource_1unk4"), SubResource("Resource_afsd0"), SubResource("Resource_ph7wu"), SubResource("Resource_qxnnq"), SubResource("Resource_4fflm"), SubResource("Resource_j43d8"), SubResource("Resource_mvm07"), SubResource("Resource_2ytxb"), SubResource("Resource_x2fef"), SubResource("Resource_0ejt6"), SubResource("Resource_0j8wj"), SubResource("Resource_awt26"), SubResource("Resource_fp45h"), SubResource("Resource_ux7ho"), SubResource("Resource_h0log"), SubResource("Resource_t5puc"), SubResource("Resource_cm3nd"), SubResource("Resource_4fi6w"), SubResource("Resource_i6xda"), SubResource("Resource_ilxlj"), SubResource("Resource_grpsr"), SubResource("Resource_xtpfx"), SubResource("Resource_5w27q"), SubResource("Resource_gtq0a"), SubResource("Resource_qdy8x"), SubResource("Resource_bohrp"), SubResource("Resource_twj2k"), SubResource("Resource_f80lr"), SubResource("Resource_ogofi"), SubResource("Resource_up8m6"), SubResource("Resource_1tj30")])
+card_back = ExtResource("1_8wwds")

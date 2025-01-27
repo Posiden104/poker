@@ -1,62 +1,34 @@
-[gd_scene load_steps=4 format=3 uid="uid://cl6kiaut73j76"]
+[gd_scene load_steps=5 format=3 uid="uid://dsohfl5js4nf6"]
 
-[ext_resource type="Script" path="res://scenes/deck_manager.gd" id="1_42ay2"]
-[ext_resource type="Resource" uid="uid://cl628ght42gh6" path="res://resources/standard_deck.tres" id="2_gvbml"]
-[ext_resource type="PackedScene" uid="uid://ccsbaagnx5eqm" path="res://scenes/card.tscn" id="3_fncn2"]
+[ext_resource type="Script" path="res://scenes/poker_manager.gd" id="1_4c4ls"]
+[ext_resource type="PackedScene" uid="uid://covtena8b31cr" path="res://deck_manager/deck_manager.tscn" id="1_qw33u"]
+[ext_resource type="PackedScene" uid="uid://ccsbaagnx5eqm" path="res://deck_manager/scenes/card.tscn" id="2_y2s23"]
+[ext_resource type="Script" path="res://scenes/player_hand.gd" id="3_gatst"]
 
-[node name="Poker" type="Node2D"]
+[node name="Poker" type="Node2D" node_paths=PackedStringArray("player_hand")]
+script = ExtResource("1_4c4ls")
+player_hand = NodePath("Hand")
 
-[node name="DeckManager" type="Node2D" parent="."]
-script = ExtResource("1_42ay2")
-deck = ExtResource("2_gvbml")
+[node name="DeckManager" parent="." instance=ExtResource("1_qw33u")]
+position = Vector2(115, 130)
 
-[node name="Card" parent="." instance=ExtResource("3_fncn2")]
-position = Vector2(335, 275)
+[node name="Hand" type="Node2D" parent="." node_paths=PackedStringArray("card1", "card2")]
+position = Vector2(595, 594)
+script = ExtResource("3_gatst")
+card1 = NodePath("Card1")
+card2 = NodePath("Card2")
 
-[node name="Flip Button" type="Button" parent="."]
-offset_left = 225.0
-offset_top = 394.0
-offset_right = 344.0
-offset_bottom = 427.0
-disabled = true
-text = "Flip"
+[node name="Card1" parent="Hand" instance=ExtResource("2_y2s23")]
+position = Vector2(-105, -75)
 
-[node name="Shuffle Button" type="Button" parent="."]
-offset_left = 226.0
-offset_top = 436.0
-offset_right = 345.0
-offset_bottom = 469.0
-text = "Shuffle"
+[node name="Card2" parent="Hand" instance=ExtResource("2_y2s23")]
+position = Vector2(97, -72)
 
-[node name="Cards Left Label" type="Label" parent="."]
-offset_left = 138.0
-offset_top = 204.0
-offset_right = 178.0
-offset_bottom = 227.0
-text = "Cards Left:"
-
-[node name="Cards Left Counter" type="Label" parent="."]
-offset_left = 164.0
-offset_top = 235.0
-offset_right = 204.0
-offset_bottom = 258.0
-text = "52"
-
-[node name="Deal Button" type="Button" parent="."]
-offset_left = 354.0
-offset_top = 393.0
-offset_right = 473.0
-offset_bottom = 426.0
+[node name="DealButton" type="Button" parent="."]
+offset_left = 1021.0
+offset_top = 40.0
+offset_right = 1110.0
+offset_bottom = 74.0
 text = "Deal"
 
-[node name="Next Button" type="Button" parent="."]
-offset_left = 353.0
-offset_top = 436.0
-offset_right = 472.0
-offset_bottom = 469.0
-text = "Next"
-
-[connection signal="pressed" from="Flip Button" to="DeckManager" method="_on_flip_button_pressed"]
-[connection signal="pressed" from="Shuffle Button" to="DeckManager" method="_on_shuffle_button_pressed"]
-[connection signal="pressed" from="Deal Button" to="DeckManager" method="_on_deal_button_pressed"]
-[connection signal="pressed" from="Next Button" to="DeckManager" method="_on_next_button_pressed"]
+[connection signal="pressed" from="DealButton" to="." method="_on_deal_button_pressed"]

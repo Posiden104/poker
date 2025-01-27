@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://covtena8b31cr"]
+
+[ext_resource type="Script" path="res://deck_manager/scenes/deck_manager.gd" id="1_wpqfl"]
+[ext_resource type="Resource" uid="uid://cl628ght42gh6" path="res://deck_manager/resources/standard_deck.tres" id="2_h1iks"]
+[ext_resource type="Texture2D" uid="uid://b72brkk6ux11p" path="res://deck_manager/resources/images/cards/cardBack_red5.png" id="3_xjwyh"]
+
+[node name="DeckManager" type="Node2D" node_paths=PackedStringArray("deck_visual")]
+script = ExtResource("1_wpqfl")
+deck = ExtResource("2_h1iks")
+deck_visual = NodePath("DeckVisual")
+
+[node name="DeckVisual" type="Sprite2D" parent="."]
+texture = ExtResource("3_xjwyh")
