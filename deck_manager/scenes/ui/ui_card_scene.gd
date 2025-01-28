@@ -1,0 +1,2 @@
+class_name UICardScene
+extends CardScene

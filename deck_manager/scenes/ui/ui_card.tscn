@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://dufo1yxbiyc1y"]
+
+[ext_resource type="Script" path="res://deck_manager/scenes/ui/ui_card_scene.gd" id="1_2m8y2"]
+[ext_resource type="Texture2D" uid="uid://b72brkk6ux11p" path="res://deck_manager/resources/images/cards/cardBack_red5.png" id="2_xjm1e"]
+
+[node name="Card" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_2m8y2")
+
+[node name="CardImage" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.0
+offset_top = -95.0
+offset_right = 70.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_xjm1e")

@@ -1,34 +1,57 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsohfl5js4nf6"]
+[gd_scene load_steps=6 format=3 uid="uid://dsohfl5js4nf6"]
 
 [ext_resource type="Script" path="res://scenes/poker_manager.gd" id="1_4c4ls"]
 [ext_resource type="PackedScene" uid="uid://covtena8b31cr" path="res://deck_manager/deck_manager.tscn" id="1_qw33u"]
 [ext_resource type="PackedScene" uid="uid://ccsbaagnx5eqm" path="res://deck_manager/scenes/card.tscn" id="2_y2s23"]
 [ext_resource type="Script" path="res://scenes/player_hand.gd" id="3_gatst"]
+[ext_resource type="PackedScene" uid="uid://dufo1yxbiyc1y" path="res://deck_manager/scenes/ui/ui_card.tscn" id="5_nk3v1"]
 
-[node name="Poker" type="Node2D" node_paths=PackedStringArray("player_hand")]
+[node name="Poker" type="Node2D" node_paths=PackedStringArray("deck_manager", "player_hand")]
 script = ExtResource("1_4c4ls")
+deck_manager = NodePath("DeckManager")
 player_hand = NodePath("Hand")
 
 [node name="DeckManager" parent="." instance=ExtResource("1_qw33u")]
-position = Vector2(115, 130)
+position = Vector2(61, 71)
 
 [node name="Hand" type="Node2D" parent="." node_paths=PackedStringArray("card1", "card2")]
-position = Vector2(595, 594)
+visible = false
+position = Vector2(488, 504)
 script = ExtResource("3_gatst")
 card1 = NodePath("Card1")
 card2 = NodePath("Card2")
 
 [node name="Card1" parent="Hand" instance=ExtResource("2_y2s23")]
-position = Vector2(-105, -75)
+position = Vector2(-65, -70)
 
 [node name="Card2" parent="Hand" instance=ExtResource("2_y2s23")]
-position = Vector2(97, -72)
+position = Vector2(66, -70)
 
 [node name="DealButton" type="Button" parent="."]
-offset_left = 1021.0
-offset_top = 40.0
-offset_right = 1110.0
-offset_bottom = 74.0
+offset_left = 831.0
+offset_top = 32.0
+offset_right = 920.0
+offset_bottom = 66.0
 text = "Deal"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Hand" type="GridContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -271.0
+offset_top = -204.0
+offset_right = 271.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Card" parent="CanvasLayer/Hand" instance=ExtResource("5_nk3v1")]
+layout_mode = 2
+
+[node name="Card2" parent="CanvasLayer/Hand" instance=ExtResource("5_nk3v1")]
+layout_mode = 2
 
 [connection signal="pressed" from="DealButton" to="." method="_on_deal_button_pressed"]
