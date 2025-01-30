@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://mr6p4ojsgbdx"]
+
+[ext_resource type="Script" path="res://scripts/player_hand.gd" id="1_xkl0i"]
+[ext_resource type="PackedScene" uid="uid://dufo1yxbiyc1y" path="res://deck_manager/scenes/ui/ui_card.tscn" id="2_eaif5"]
+
+[node name="Hand" type="HBoxContainer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -150.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+script = ExtResource("1_xkl0i")
+card_prefab = ExtResource("2_eaif5")
+
+[node name="Card" parent="." instance=ExtResource("2_eaif5")]
+layout_mode = 2
+
+[node name="Card2" parent="." instance=ExtResource("2_eaif5")]
+layout_mode = 2

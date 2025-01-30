@@ -1,57 +1,76 @@
 [gd_scene load_steps=6 format=3 uid="uid://dsohfl5js4nf6"]
 
-[ext_resource type="Script" path="res://scenes/poker_manager.gd" id="1_4c4ls"]
+[ext_resource type="Script" path="res://scripts/poker_manager.gd" id="1_4c4ls"]
 [ext_resource type="PackedScene" uid="uid://covtena8b31cr" path="res://deck_manager/deck_manager.tscn" id="1_qw33u"]
-[ext_resource type="PackedScene" uid="uid://ccsbaagnx5eqm" path="res://deck_manager/scenes/card.tscn" id="2_y2s23"]
-[ext_resource type="Script" path="res://scenes/player_hand.gd" id="3_gatst"]
-[ext_resource type="PackedScene" uid="uid://dufo1yxbiyc1y" path="res://deck_manager/scenes/ui/ui_card.tscn" id="5_nk3v1"]
+[ext_resource type="PackedScene" uid="uid://mr6p4ojsgbdx" path="res://scenes/hand.tscn" id="4_owd80"]
+[ext_resource type="Script" path="res://scripts/opponent_manager.gd" id="5_5ny54"]
+[ext_resource type="PackedScene" uid="uid://cj4vfqtf5ljfv" path="res://scenes/opponent_hand.tscn" id="6_jk6yg"]
 
-[node name="Poker" type="Node2D" node_paths=PackedStringArray("deck_manager", "player_hand")]
+[node name="Poker" type="Node2D"]
+
+[node name="PokerManager" type="Node2D" parent="." node_paths=PackedStringArray("deck_manager", "player_hand", "opponent_manager")]
 script = ExtResource("1_4c4ls")
-deck_manager = NodePath("DeckManager")
-player_hand = NodePath("Hand")
+deck_manager = NodePath("../DeckManager")
+player_hand = NodePath("../CanvasLayer/Hand")
+opponent_manager = NodePath("../OpponentManager")
 
 [node name="DeckManager" parent="." instance=ExtResource("1_qw33u")]
 position = Vector2(61, 71)
 
-[node name="Hand" type="Node2D" parent="." node_paths=PackedStringArray("card1", "card2")]
-visible = false
-position = Vector2(488, 504)
-script = ExtResource("3_gatst")
-card1 = NodePath("Card1")
-card2 = NodePath("Card2")
-
-[node name="Card1" parent="Hand" instance=ExtResource("2_y2s23")]
-position = Vector2(-65, -70)
-
-[node name="Card2" parent="Hand" instance=ExtResource("2_y2s23")]
-position = Vector2(66, -70)
-
-[node name="DealButton" type="Button" parent="."]
-offset_left = 831.0
-offset_top = 32.0
-offset_right = 920.0
-offset_bottom = 66.0
-text = "Deal"
+[node name="OpponentManager" type="Node2D" parent="." node_paths=PackedStringArray("opponent_hbox")]
+script = ExtResource("5_5ny54")
+OpponentScene = ExtResource("6_jk6yg")
+opponent_hbox = NodePath("../CanvasLayer/OpponentHands")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Hand" type="GridContainer" parent="CanvasLayer"]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -271.0
-offset_top = -204.0
-offset_right = 271.0
+[node name="Hand" parent="CanvasLayer" instance=ExtResource("4_owd80")]
+
+[node name="DealButton" type="Button" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -106.0
+offset_top = 16.0
+offset_right = -17.0
+offset_bottom = 50.0
+grow_horizontal = 0
+text = "Deal"
+
+[node name="add Oppt Button" type="Button" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -106.0
+offset_top = 53.0
+offset_right = -17.0
+offset_bottom = 87.0
+grow_horizontal = 0
+text = "add opponent"
+
+[node name="OpponentHands" type="HBoxContainer" parent="CanvasLayer"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 53.0
+offset_top = 129.0
+offset_right = -36.0
+offset_bottom = 224.0
 grow_horizontal = 2
-grow_vertical = 0
 
-[node name="Card" parent="CanvasLayer/Hand" instance=ExtResource("5_nk3v1")]
+[node name="OpponentHand" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
 layout_mode = 2
 
-[node name="Card2" parent="CanvasLayer/Hand" instance=ExtResource("5_nk3v1")]
+[node name="OpponentHand2" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
 layout_mode = 2
 
-[connection signal="pressed" from="DealButton" to="." method="_on_deal_button_pressed"]
+[node name="OpponentHand3" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
+layout_mode = 2
+
+[node name="OpponentHand4" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
+layout_mode = 2
+
+[node name="OpponentHand5" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
+layout_mode = 2
+
+[connection signal="pressed" from="CanvasLayer/DealButton" to="PokerManager" method="_on_deal_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/add Oppt Button" to="PokerManager" method="_on_add_oppt_button_pressed"]

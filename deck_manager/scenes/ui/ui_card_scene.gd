@@ -1,2 +1,2 @@
 class_name UICardScene
-extends CardScene
+extends CardBase

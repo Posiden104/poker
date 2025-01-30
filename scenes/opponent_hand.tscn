@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://cj4vfqtf5ljfv"]
+
+[ext_resource type="Script" path="res://scripts/opponent_hand.gd" id="1_xlh8u"]
+[ext_resource type="PackedScene" uid="uid://dufo1yxbiyc1y" path="res://deck_manager/scenes/ui/ui_card.tscn" id="2_vxsmd"]
+
+[node name="MarginContainer" type="MarginContainer"]
+offset_right = 144.0
+offset_bottom = 95.0
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
+
+[node name="OpponentHand" type="HBoxContainer" parent="."]
+layout_mode = 2
+script = ExtResource("1_xlh8u")
+card_prefab = ExtResource("2_vxsmd")
+
+[node name="Card" parent="OpponentHand" instance=ExtResource("2_vxsmd")]
+layout_mode = 2
+
+[node name="Card2" parent="OpponentHand" instance=ExtResource("2_vxsmd")]
+layout_mode = 2
