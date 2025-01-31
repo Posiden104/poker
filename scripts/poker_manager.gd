@@ -18,6 +18,8 @@ func _on_deal_button_pressed():
 	else:
 		deal_to_player = opponent_manager.deal_opponent(deck_manager.deal(), deck_manager.deck)
 	
+	if deal_to_player and player_hand.card_count() == player_hand_limit:
+		$"../CanvasLayer/DealButton".disabled = true
 
 
 func _on_add_oppt_button_pressed():
