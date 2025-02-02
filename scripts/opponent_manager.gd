@@ -14,7 +14,9 @@ func _ready():
 func add_opponent():
 	var o = OpponentScene.instantiate()
 	opponent_hbox.add_child(o)
-	opponents.push_back(o.get_node("OpponentHand"))
+	opponents.push_back(o)
+	o.setup("Opponent %d" % opponents.size())
+	
 
 # Returns true if there are more opponents to deal
 func deal_opponent(card: Card, deck: Deck) -> bool:
@@ -32,3 +34,7 @@ func deal_opponent(card: Card, deck: Deck) -> bool:
 	print("We still need more cards")
 	return false
 	
+
+
+func _on_add_oppt_button_pressed():
+	add_opponent()

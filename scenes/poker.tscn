@@ -8,11 +8,14 @@
 
 [node name="Poker" type="Node2D"]
 
-[node name="PokerManager" type="Node2D" parent="." node_paths=PackedStringArray("deck_manager", "player_hand", "opponent_manager")]
+[node name="PokerManager" type="Node2D" parent="." node_paths=PackedStringArray("deck_manager", "player_hand", "opponent_manager", "start_button", "add_oppt_button", "step_button")]
 script = ExtResource("1_4c4ls")
 deck_manager = NodePath("../DeckManager")
 player_hand = NodePath("../CanvasLayer/Hand")
 opponent_manager = NodePath("../OpponentManager")
+start_button = NodePath("../CanvasLayer/StartButton")
+add_oppt_button = NodePath("../CanvasLayer/add Oppt Button")
+step_button = NodePath("../CanvasLayer/Step Button")
 
 [node name="DeckManager" parent="." instance=ExtResource("1_qw33u")]
 position = Vector2(61, 71)
@@ -26,7 +29,7 @@ opponent_hbox = NodePath("../CanvasLayer/OpponentHands")
 
 [node name="Hand" parent="CanvasLayer" instance=ExtResource("4_owd80")]
 
-[node name="DealButton" type="Button" parent="CanvasLayer"]
+[node name="StartButton" type="Button" parent="CanvasLayer"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -35,7 +38,7 @@ offset_top = 16.0
 offset_right = -17.0
 offset_bottom = 50.0
 grow_horizontal = 0
-text = "Deal"
+text = "Start Game"
 
 [node name="add Oppt Button" type="Button" parent="CanvasLayer"]
 anchors_preset = 1
@@ -47,6 +50,19 @@ offset_right = -17.0
 offset_bottom = 87.0
 grow_horizontal = 0
 text = "add opponent"
+
+[node name="Step Button" type="Button" parent="CanvasLayer"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -117.0
+offset_top = -34.0
+grow_horizontal = 0
+grow_vertical = 0
+disabled = true
+text = "Step"
 
 [node name="OpponentHands" type="HBoxContainer" parent="CanvasLayer"]
 anchors_preset = 10
@@ -72,5 +88,7 @@ layout_mode = 2
 [node name="OpponentHand5" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
 layout_mode = 2
 
-[connection signal="pressed" from="CanvasLayer/DealButton" to="PokerManager" method="_on_deal_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/add Oppt Button" to="PokerManager" method="_on_add_oppt_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartButton" to="PokerManager" method="_on_start_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/StartButton" to="PokerManager" method="_on_deal_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/add Oppt Button" to="OpponentManager" method="_on_add_oppt_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Step Button" to="PokerManager" method="_on_step_button_pressed"]

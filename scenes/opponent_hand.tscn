@@ -3,21 +3,39 @@
 [ext_resource type="Script" path="res://scripts/opponent_hand.gd" id="1_xlh8u"]
 [ext_resource type="PackedScene" uid="uid://dufo1yxbiyc1y" path="res://deck_manager/scenes/ui/ui_card.tscn" id="2_vxsmd"]
 
-[node name="MarginContainer" type="MarginContainer"]
-offset_right = 144.0
-offset_bottom = 95.0
+[node name="Opponent Hand" type="Control" node_paths=PackedStringArray("hand_container", "name_label")]
+custom_minimum_size = Vector2(184, 142)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 184.0
+offset_bottom = 142.0
+script = ExtResource("1_xlh8u")
+hand_container = NodePath("MarginContainer/VBoxContainer/OpponentHand")
+name_label = NodePath("MarginContainer/VBoxContainer/Name Label")
+card_prefab = ExtResource("2_vxsmd")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 184.0
+offset_bottom = 142.0
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="OpponentHand" type="HBoxContainer" parent="."]
-layout_mode = 2
-script = ExtResource("1_xlh8u")
-card_prefab = ExtResource("2_vxsmd")
-
-[node name="Card" parent="OpponentHand" instance=ExtResource("2_vxsmd")]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Card2" parent="OpponentHand" instance=ExtResource("2_vxsmd")]
+[node name="Name Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Opponent 1"
+horizontal_alignment = 1
+
+[node name="OpponentHand" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Card" parent="MarginContainer/VBoxContainer/OpponentHand" instance=ExtResource("2_vxsmd")]
+layout_mode = 2
+
+[node name="Card2" parent="MarginContainer/VBoxContainer/OpponentHand" instance=ExtResource("2_vxsmd")]
 layout_mode = 2
