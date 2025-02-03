@@ -8,6 +8,8 @@ var cards: Array[Card]
 func _ready():
 	for child in self.get_children():
 		child.queue_free()
+	
+	SIGNAL_BUS.register_player.emit(self)
 
 func card_count() -> int:
 	return cards.size()

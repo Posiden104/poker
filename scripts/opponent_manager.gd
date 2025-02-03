@@ -20,18 +20,13 @@ func add_opponent():
 
 # Returns true if there are more opponents to deal
 func deal_opponent(card: Card, deck: Deck) -> bool:
-	print("dealing opponent")
 	if next_opponent_id > opponents.size() - 1:
-		print("next_opponent_id bad")
 		return true
-	print("dealing to oppt")
 	opponents[next_opponent_id].deal(card, deck)
 	next_opponent_id += 1
 	if next_opponent_id > opponents.size() - 1:
-		print("no more opponents")
 		next_opponent_id = 0
 		return true
-	print("We still need more cards")
 	return false
 	
 

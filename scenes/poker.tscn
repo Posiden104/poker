@@ -8,14 +8,17 @@
 
 [node name="Poker" type="Node2D"]
 
-[node name="PokerManager" type="Node2D" parent="." node_paths=PackedStringArray("deck_manager", "player_hand", "opponent_manager", "start_button", "add_oppt_button", "step_button")]
+[node name="PokerManager" type="Node2D" parent="." node_paths=PackedStringArray("deck_manager", "opponent_manager", "start_button", "add_oppt_button", "step_button")]
 script = ExtResource("1_4c4ls")
 deck_manager = NodePath("../DeckManager")
-player_hand = NodePath("../CanvasLayer/Hand")
 opponent_manager = NodePath("../OpponentManager")
 start_button = NodePath("../CanvasLayer/StartButton")
 add_oppt_button = NodePath("../CanvasLayer/add Oppt Button")
 step_button = NodePath("../CanvasLayer/Step Button")
+
+[node name="DealTimer" type="Timer" parent="PokerManager"]
+wait_time = 0.25
+one_shot = true
 
 [node name="DeckManager" parent="." instance=ExtResource("1_qw33u")]
 position = Vector2(61, 71)
@@ -88,6 +91,7 @@ layout_mode = 2
 [node name="OpponentHand5" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
 layout_mode = 2
 
+[connection signal="timeout" from="PokerManager/DealTimer" to="PokerManager" method="_on_deal_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/StartButton" to="PokerManager" method="_on_start_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/StartButton" to="PokerManager" method="_on_deal_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/add Oppt Button" to="OpponentManager" method="_on_add_oppt_button_pressed"]
