@@ -3,19 +3,22 @@ extends Node2D
 
 @export var OpponentScene: PackedScene
 @export var opponent_hbox: HBoxContainer
+@onready var poker_manager = $"../PokerManager"
 
 var opponents: Array[OpponentHand]
 var next_opponent_id = 0
 
 func _ready():
 	for c in opponent_hbox.get_children():
+		c.unregister_player()
 		c.queue_free()
 
 func add_opponent():
 	var o = OpponentScene.instantiate()
 	opponent_hbox.add_child(o)
 	opponents.push_back(o)
-	o.setup("Opponent %d" % opponents.size())
+	o.set_name_label("Opponent %d" % opponents.size())
+	o.setup()
 	
 
 # Returns true if there are more opponents to deal

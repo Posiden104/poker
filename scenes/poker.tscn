@@ -1,20 +1,24 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsohfl5js4nf6"]
+[gd_scene load_steps=9 format=3 uid="uid://dsohfl5js4nf6"]
 
 [ext_resource type="Script" path="res://scripts/poker_manager.gd" id="1_4c4ls"]
 [ext_resource type="PackedScene" uid="uid://covtena8b31cr" path="res://deck_manager/deck_manager.tscn" id="1_qw33u"]
 [ext_resource type="PackedScene" uid="uid://mr6p4ojsgbdx" path="res://scenes/hand.tscn" id="4_owd80"]
+[ext_resource type="Script" path="res://scenes/center_cards_hand.gd" id="5_4be38"]
 [ext_resource type="Script" path="res://scripts/opponent_manager.gd" id="5_5ny54"]
+[ext_resource type="PackedScene" uid="uid://dufo1yxbiyc1y" path="res://deck_manager/scenes/ui/ui_card.tscn" id="5_aonns"]
 [ext_resource type="PackedScene" uid="uid://cj4vfqtf5ljfv" path="res://scenes/opponent_hand.tscn" id="6_jk6yg"]
+[ext_resource type="PackedScene" uid="uid://c63y82rl7wj27" path="res://deck_manager/scenes/dealable.tscn" id="6_uxroj"]
 
 [node name="Poker" type="Node2D"]
 
-[node name="PokerManager" type="Node2D" parent="." node_paths=PackedStringArray("deck_manager", "opponent_manager", "start_button", "add_oppt_button", "step_button")]
+[node name="PokerManager" type="Node2D" parent="." node_paths=PackedStringArray("deck_manager", "opponent_manager", "start_button", "add_oppt_button", "step_button", "center_cards")]
 script = ExtResource("1_4c4ls")
 deck_manager = NodePath("../DeckManager")
 opponent_manager = NodePath("../OpponentManager")
 start_button = NodePath("../CanvasLayer/StartButton")
 add_oppt_button = NodePath("../CanvasLayer/add Oppt Button")
 step_button = NodePath("../CanvasLayer/Step Button")
+center_cards = NodePath("../CanvasLayer/CenterCards")
 
 [node name="DealTimer" type="Timer" parent="PokerManager"]
 wait_time = 0.25
@@ -30,7 +34,55 @@ opponent_hbox = NodePath("../CanvasLayer/OpponentHands")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Hand" parent="CanvasLayer" instance=ExtResource("4_owd80")]
+[node name="CenterCards" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("hand_container", "dealable")]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 671.0
+offset_top = 283.0
+offset_right = 671.0
+offset_bottom = 378.0
+script = ExtResource("5_4be38")
+hand_container = NodePath("CenterCardsContainer")
+dealable = NodePath("Dealable")
+
+[node name="Dealable" parent="CanvasLayer/CenterCards" instance=ExtResource("6_uxroj")]
+layout_mode = 2
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -2.0
+offset_right = -2.0
+offset_bottom = 95.0
+show_card_face_on_deal = true
+
+[node name="CenterCardsContainer" type="HBoxContainer" parent="CanvasLayer/CenterCards"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -372.0
+offset_top = -47.5
+offset_right = -2.0
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Card" parent="CanvasLayer/CenterCards/CenterCardsContainer" instance=ExtResource("5_aonns")]
+layout_mode = 2
+
+[node name="Card2" parent="CanvasLayer/CenterCards/CenterCardsContainer" instance=ExtResource("5_aonns")]
+layout_mode = 2
+
+[node name="Card3" parent="CanvasLayer/CenterCards/CenterCardsContainer" instance=ExtResource("5_aonns")]
+layout_mode = 2
+
+[node name="Card4" parent="CanvasLayer/CenterCards/CenterCardsContainer" instance=ExtResource("5_aonns")]
+layout_mode = 2
+
+[node name="Card5" parent="CanvasLayer/CenterCards/CenterCardsContainer" instance=ExtResource("5_aonns")]
+layout_mode = 2
 
 [node name="StartButton" type="Button" parent="CanvasLayer"]
 anchors_preset = 1
@@ -67,13 +119,23 @@ grow_vertical = 0
 disabled = true
 text = "Step"
 
+[node name="Hand" parent="CanvasLayer" instance=ExtResource("4_owd80")]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
 [node name="OpponentHands" type="HBoxContainer" parent="CanvasLayer"]
-anchors_preset = 10
-anchor_right = 1.0
-offset_left = 53.0
-offset_top = 129.0
-offset_right = -36.0
-offset_bottom = 224.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -468.0
+offset_top = 121.0
+offset_right = 468.0
+offset_bottom = 263.0
 grow_horizontal = 2
 
 [node name="OpponentHand" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
@@ -91,8 +153,17 @@ layout_mode = 2
 [node name="OpponentHand5" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
 layout_mode = 2
 
-[connection signal="timeout" from="PokerManager/DealTimer" to="PokerManager" method="_on_deal_timer_timeout"]
+[node name="StateLabel" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_top = 24.0
+offset_right = 20.0
+offset_bottom = 47.0
+grow_horizontal = 2
+text = "State"
+
 [connection signal="pressed" from="CanvasLayer/StartButton" to="PokerManager" method="_on_start_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/StartButton" to="PokerManager" method="_on_deal_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/add Oppt Button" to="OpponentManager" method="_on_add_oppt_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Step Button" to="PokerManager" method="_on_step_button_pressed"]

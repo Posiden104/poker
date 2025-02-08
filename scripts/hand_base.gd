@@ -1,25 +1,30 @@
 class_name HandBase
 extends Control
 
-@export var card_prefab: PackedScene
+@export var hand_container: HBoxContainer
+@export var dealable: Dealable
 
 var cards: Array[Card]
+var id: int = -1
 
-func _ready():
-	for child in self.get_children():
-		child.queue_free()
-	
+func setup():
 	SIGNAL_BUS.register_player.emit(self)
+	for child in hand_container.get_children():
+		child.queue_free()
+
+func set_id(_id):
+	id = _id
 
 func card_count() -> int:
 	return cards.size()
 
-func deal(card: Card, deck: Deck):
-	cards.append(card)
-	var c = card_prefab.instantiate() as UICardScene
-	c.card = card
-	c.deck = deck
-	self.add_child(c)
-	c.set_is_face_up(true)
-	
+func unregister_player():
+	SIGNAL_BUS.unregister_player.emit(self)
 
+func deal(card: Card, deck: Deck):
+	var c = dealable.deal(card, deck)
+	cards.append(card)
+	hand_container.add_child(c)
+
+func request_bet():
+	return 1

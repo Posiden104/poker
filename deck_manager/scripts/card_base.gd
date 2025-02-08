@@ -5,8 +5,7 @@ extends Node
 @export var deck: Deck
 @export var card_back: Texture2D
 @export var is_face_up: bool = false
-
-@onready var card_image = $CardImage
+@export var card_image = TextureRect
 
 const default_card_back = preload("res://deck_manager/resources/images/cards/cardBack_red5.png")
 
@@ -14,6 +13,7 @@ func _ready():
 	hide_card()
 	load_card()
 	show_card()
+	refresh_image()
 
 func load_card():
 	if deck:
@@ -27,10 +27,10 @@ func set_is_face_up(face_up):
 	flip()
 
 func hide_card():
-	card_image.hide()
+	card_image.visible = false
 
 func show_card():
-	card_image.show()
+	card_image.visible = true
 
 func flip():
 	is_face_up = not is_face_up

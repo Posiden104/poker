@@ -1,23 +1,47 @@
-[gd_scene load_steps=3 format=3 uid="uid://mr6p4ojsgbdx"]
+[gd_scene load_steps=4 format=3 uid="uid://mr6p4ojsgbdx"]
 
 [ext_resource type="Script" path="res://scripts/player_hand.gd" id="1_xkl0i"]
 [ext_resource type="PackedScene" uid="uid://dufo1yxbiyc1y" path="res://deck_manager/scenes/ui/ui_card.tscn" id="2_eaif5"]
+[ext_resource type="PackedScene" uid="uid://c63y82rl7wj27" path="res://deck_manager/scenes/dealable.tscn" id="3_dwlgy"]
 
-[node name="Hand" type="HBoxContainer"]
+[node name="Hand" type="Control" node_paths=PackedStringArray("hand_container", "dealable")]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_xkl0i")
+hand_container = NodePath("MarginContainer/Hand")
+dealable = NodePath("Dealable")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -150.0
-offset_bottom = -50.0
+offset_left = -92.0
+offset_top = -142.0
+offset_right = 92.0
 grow_horizontal = 2
 grow_vertical = 0
-script = ExtResource("1_xkl0i")
-card_prefab = ExtResource("2_eaif5")
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 10
 
-[node name="Card" parent="." instance=ExtResource("2_eaif5")]
+[node name="Hand" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Card2" parent="." instance=ExtResource("2_eaif5")]
+[node name="Card" parent="MarginContainer/Hand" instance=ExtResource("2_eaif5")]
 layout_mode = 2
+
+[node name="Card2" parent="MarginContainer/Hand" instance=ExtResource("2_eaif5")]
+layout_mode = 2
+
+[node name="Dealable" parent="." instance=ExtResource("3_dwlgy")]
+layout_mode = 1
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+show_card_face_on_deal = true

@@ -3,12 +3,13 @@
 [ext_resource type="Script" path="res://deck_manager/scenes/ui/ui_card_scene.gd" id="1_2m8y2"]
 [ext_resource type="Texture2D" uid="uid://b72brkk6ux11p" path="res://deck_manager/resources/images/cards/cardBack_red5.png" id="2_xjm1e"]
 
-[node name="Card" type="Control"]
+[node name="Card" type="Control" node_paths=PackedStringArray("card_image")]
 custom_minimum_size = Vector2(70, 95)
 layout_mode = 3
 anchors_preset = 0
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_2m8y2")
+card_image = NodePath("CardImage")
 
 [node name="CardImage" type="TextureRect" parent="."]
 layout_mode = 1

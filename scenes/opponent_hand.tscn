@@ -1,18 +1,19 @@
-[gd_scene load_steps=3 format=3 uid="uid://cj4vfqtf5ljfv"]
+[gd_scene load_steps=4 format=3 uid="uid://cj4vfqtf5ljfv"]
 
 [ext_resource type="Script" path="res://scripts/opponent_hand.gd" id="1_xlh8u"]
 [ext_resource type="PackedScene" uid="uid://dufo1yxbiyc1y" path="res://deck_manager/scenes/ui/ui_card.tscn" id="2_vxsmd"]
+[ext_resource type="PackedScene" uid="uid://c63y82rl7wj27" path="res://deck_manager/scenes/dealable.tscn" id="3_1lcwq"]
 
-[node name="Opponent Hand" type="Control" node_paths=PackedStringArray("hand_container", "name_label")]
+[node name="Opponent Hand" type="Control" node_paths=PackedStringArray("name_label", "hand_container", "dealable")]
 custom_minimum_size = Vector2(184, 142)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 184.0
 offset_bottom = 142.0
 script = ExtResource("1_xlh8u")
-hand_container = NodePath("MarginContainer/VBoxContainer/OpponentHand")
 name_label = NodePath("MarginContainer/VBoxContainer/Name Label")
-card_prefab = ExtResource("2_vxsmd")
+hand_container = NodePath("MarginContainer/VBoxContainer/OpponentHand")
+dealable = NodePath("Dealable")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -39,3 +40,6 @@ layout_mode = 2
 
 [node name="Card2" parent="MarginContainer/VBoxContainer/OpponentHand" instance=ExtResource("2_vxsmd")]
 layout_mode = 2
+
+[node name="Dealable" parent="." instance=ExtResource("3_1lcwq")]
+layout_mode = 1

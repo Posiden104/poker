@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://c63y82rl7wj27"]
+
+[ext_resource type="Script" path="res://deck_manager/scenes/dealable.gd" id="1_csqqm"]
+[ext_resource type="PackedScene" uid="uid://dufo1yxbiyc1y" path="res://deck_manager/scenes/ui/ui_card.tscn" id="2_dvxlr"]
+
+[node name="Dealable" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_csqqm")
+card_prefab = ExtResource("2_dvxlr")
