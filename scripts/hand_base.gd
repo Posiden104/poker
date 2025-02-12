@@ -9,6 +9,9 @@ var id: int = -1
 
 func setup():
 	SIGNAL_BUS.register_player.emit(self)
+	clear()
+	
+func clear():
 	for child in hand_container.get_children():
 		child.queue_free()
 
@@ -28,3 +31,6 @@ func deal(card: Card, deck: Deck):
 
 func request_bet():
 	return 1
+
+func fold():
+	pass

@@ -29,7 +29,13 @@ func _ready():
 	center_cards.setup()
 
 func step():
+	step_button.disabled = true
+	step_button.visible = false
+	
 	state += 1
+	if state > States.CLEANUP:
+		state = 0
+		
 	match state:
 		States.HAND_SETUP:
 			step()
@@ -63,6 +69,8 @@ func step():
 		States.CLEANUP:
 			state_label.text = "cleanup"
 			add_oppt_button.visible = true
+			start_button.visible = true
+			cleanup()
 
 func register_player(player_hand: HandBase):
 	print("player registered")
@@ -98,9 +106,12 @@ func deal_hands():
 		deal_timer.start()
 
 func bet():
-	step()
+	step_button.disabled = false
+	step_button.visible = true
 
 func deal(number_of_cards):
+	var c = deck_manager.deal()
+	deck_manager.discard(c)
 	deal_target = number_of_cards
 	deal_timer.timeout.connect(deal_center)
 	deal_center()
@@ -115,6 +126,20 @@ func deal_center():
 		step()
 		return
 	deal_timer.start()
+
+func cleanup():
+	for c in center_cards.cards:
+		deck_manager.discard(c)
+	center_cards.cards.clear()
+	center_cards.clear()
+	
+	for p in players:
+		for c in p.cards:
+			deck_manager.discard(c)
+		p.clear()
+		
+	rounds_dealt = 0
+	
 
 func _on_start_button_pressed():
 	start_button.visible = false
