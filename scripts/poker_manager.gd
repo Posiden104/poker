@@ -18,7 +18,7 @@ var active_player_pointer: int = 0
 var rounds_dealt = 0
 var deal_target = 0
 
-enum States {HAND_SETUP, SHUFFLE, DEALING, FIRST_BET, FLOP, FLOP_BET, TURN, TURN_BET, RIVER, RIVER_BET, CLEANUP}
+enum States {HAND_SETUP, SHUFFLE, DEALING, FIRST_BET, FLOP, FLOP_BET, TURN, TURN_BET, RIVER, RIVER_BET, REVEAL, CLEANUP}
 var state: States = States.HAND_SETUP
 
 func _ready():
@@ -66,6 +66,9 @@ func step():
 		States.RIVER_BET:
 			state_label.text = "river bet"
 			bet()
+		States.REVEAL:
+			state_label.text = "reveal"
+			reveal()
 		States.CLEANUP:
 			state_label.text = "cleanup"
 			add_oppt_button.visible = true
@@ -126,6 +129,13 @@ func deal_center():
 		step()
 		return
 	deal_timer.start()
+
+func reveal():
+	for p in players:
+		p.show_hand()
+		
+	step_button.visible = true
+	step_button.disabled = false
 
 func cleanup():
 	for c in center_cards.cards:

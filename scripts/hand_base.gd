@@ -34,3 +34,7 @@ func request_bet():
 
 func fold():
 	pass
+
+func show_hand():
+	for c in hand_container.get_children():
+		c.set_is_face_up(true)
