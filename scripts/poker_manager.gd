@@ -66,6 +66,7 @@ func step():
 		States.RIVER_BET:
 			state_label.text = "river bet"
 			bet()
+#make sure this gets in there
 		States.REVEAL:
 			state_label.text = "reveal"
 			reveal()
