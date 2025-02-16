@@ -9,15 +9,16 @@ var opponents: Array[OpponentHand]
 var next_opponent_id = 0
 
 func _ready():
+	print("removing all opponents")
 	for c in opponent_hbox.get_children():
-		c.unregister_player()
+		#c.unregister_player()
 		c.queue_free()
 
-func add_opponent():
+func add_opponent(opponent_name = "Opponent"):
 	var o = OpponentScene.instantiate()
 	opponent_hbox.add_child(o)
 	opponents.push_back(o)
-	o.set_name_label("Opponent %d" % opponents.size())
+	o.set_name_label(opponent_name)
 	o.setup()
 	
 

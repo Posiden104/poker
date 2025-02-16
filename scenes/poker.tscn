@@ -1,24 +1,27 @@
-[gd_scene load_steps=9 format=3 uid="uid://dsohfl5js4nf6"]
+[gd_scene load_steps=8 format=3 uid="uid://dsohfl5js4nf6"]
 
 [ext_resource type="Script" path="res://scripts/poker_manager.gd" id="1_4c4ls"]
 [ext_resource type="PackedScene" uid="uid://covtena8b31cr" path="res://deck_manager/deck_manager.tscn" id="1_qw33u"]
 [ext_resource type="PackedScene" uid="uid://mr6p4ojsgbdx" path="res://scenes/hand.tscn" id="4_owd80"]
-[ext_resource type="Script" path="res://scenes/center_cards_hand.gd" id="5_4be38"]
+[ext_resource type="Script" path="res://scripts/center_cards_hand.gd" id="5_4be38"]
 [ext_resource type="Script" path="res://scripts/opponent_manager.gd" id="5_5ny54"]
-[ext_resource type="PackedScene" uid="uid://dufo1yxbiyc1y" path="res://deck_manager/scenes/ui/ui_card.tscn" id="5_aonns"]
 [ext_resource type="PackedScene" uid="uid://cj4vfqtf5ljfv" path="res://scenes/opponent_hand.tscn" id="6_jk6yg"]
 [ext_resource type="PackedScene" uid="uid://c63y82rl7wj27" path="res://deck_manager/scenes/dealable.tscn" id="6_uxroj"]
 
 [node name="Poker" type="Node2D"]
 
-[node name="PokerManager" type="Node2D" parent="." node_paths=PackedStringArray("deck_manager", "opponent_manager", "start_button", "add_oppt_button", "step_button", "center_cards")]
+[node name="PokerManager" type="Node2D" parent="." node_paths=PackedStringArray("deck_manager", "opponent_manager", "deal_timer", "start_button", "add_oppt_button", "step_button", "state_label", "center_cards", "poker_canvas", "local_player")]
 script = ExtResource("1_4c4ls")
 deck_manager = NodePath("../DeckManager")
 opponent_manager = NodePath("../OpponentManager")
-start_button = NodePath("../CanvasLayer/StartButton")
-add_oppt_button = NodePath("../CanvasLayer/add Oppt Button")
-step_button = NodePath("../CanvasLayer/Step Button")
-center_cards = NodePath("../CanvasLayer/CenterCards")
+deal_timer = NodePath("DealTimer")
+start_button = NodePath("../PokerCanvas/StartButton")
+add_oppt_button = NodePath("../PokerCanvas/add Oppt Button")
+step_button = NodePath("../PokerCanvas/Step Button")
+state_label = NodePath("../PokerCanvas/StateLabel")
+center_cards = NodePath("../PokerCanvas/CenterCards")
+poker_canvas = NodePath("../PokerCanvas")
+local_player = NodePath("../PokerCanvas/Hand")
 
 [node name="DealTimer" type="Timer" parent="PokerManager"]
 wait_time = 0.25
@@ -30,11 +33,11 @@ position = Vector2(61, 71)
 [node name="OpponentManager" type="Node2D" parent="." node_paths=PackedStringArray("opponent_hbox")]
 script = ExtResource("5_5ny54")
 OpponentScene = ExtResource("6_jk6yg")
-opponent_hbox = NodePath("../CanvasLayer/OpponentHands")
+opponent_hbox = NodePath("../PokerCanvas/OpponentHands")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="PokerCanvas" type="CanvasLayer" parent="."]
 
-[node name="CenterCards" type="Control" parent="CanvasLayer" node_paths=PackedStringArray("hand_container", "dealable")]
+[node name="CenterCards" type="Control" parent="PokerCanvas" node_paths=PackedStringArray("hand_container", "dealable")]
 layout_mode = 3
 anchors_preset = 0
 offset_left = 671.0
@@ -45,7 +48,7 @@ script = ExtResource("5_4be38")
 hand_container = NodePath("CenterCardsContainer")
 dealable = NodePath("Dealable")
 
-[node name="Dealable" parent="CanvasLayer/CenterCards" instance=ExtResource("6_uxroj")]
+[node name="Dealable" parent="PokerCanvas/CenterCards" instance=ExtResource("6_uxroj")]
 layout_mode = 2
 anchors_preset = 0
 anchor_right = 0.0
@@ -55,7 +58,7 @@ offset_right = -2.0
 offset_bottom = 95.0
 show_card_face_on_deal = true
 
-[node name="CenterCardsContainer" type="HBoxContainer" parent="CanvasLayer/CenterCards"]
+[node name="CenterCardsContainer" type="HBoxContainer" parent="PokerCanvas/CenterCards"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -69,22 +72,22 @@ offset_bottom = 47.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Card" parent="CanvasLayer/CenterCards/CenterCardsContainer" instance=ExtResource("5_aonns")]
+[node name="Card" parent="PokerCanvas/CenterCards/CenterCardsContainer" instance_placeholder="res://deck_manager/scenes/ui/ui_card.tscn"]
 layout_mode = 2
 
-[node name="Card2" parent="CanvasLayer/CenterCards/CenterCardsContainer" instance=ExtResource("5_aonns")]
+[node name="Card2" parent="PokerCanvas/CenterCards/CenterCardsContainer" instance_placeholder="res://deck_manager/scenes/ui/ui_card.tscn"]
 layout_mode = 2
 
-[node name="Card3" parent="CanvasLayer/CenterCards/CenterCardsContainer" instance=ExtResource("5_aonns")]
+[node name="Card3" parent="PokerCanvas/CenterCards/CenterCardsContainer" instance_placeholder="res://deck_manager/scenes/ui/ui_card.tscn"]
 layout_mode = 2
 
-[node name="Card4" parent="CanvasLayer/CenterCards/CenterCardsContainer" instance=ExtResource("5_aonns")]
+[node name="Card4" parent="PokerCanvas/CenterCards/CenterCardsContainer" instance_placeholder="res://deck_manager/scenes/ui/ui_card.tscn"]
 layout_mode = 2
 
-[node name="Card5" parent="CanvasLayer/CenterCards/CenterCardsContainer" instance=ExtResource("5_aonns")]
+[node name="Card5" parent="PokerCanvas/CenterCards/CenterCardsContainer" instance_placeholder="res://deck_manager/scenes/ui/ui_card.tscn"]
 layout_mode = 2
 
-[node name="StartButton" type="Button" parent="CanvasLayer"]
+[node name="StartButton" type="Button" parent="PokerCanvas"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -95,7 +98,7 @@ offset_bottom = 50.0
 grow_horizontal = 0
 text = "Start Game"
 
-[node name="add Oppt Button" type="Button" parent="CanvasLayer"]
+[node name="add Oppt Button" type="Button" parent="PokerCanvas"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -106,7 +109,7 @@ offset_bottom = 87.0
 grow_horizontal = 0
 text = "add opponent"
 
-[node name="Step Button" type="Button" parent="CanvasLayer"]
+[node name="Step Button" type="Button" parent="PokerCanvas"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -119,16 +122,18 @@ grow_vertical = 0
 disabled = true
 text = "Step"
 
-[node name="Hand" parent="CanvasLayer" instance=ExtResource("4_owd80")]
+[node name="Hand" parent="PokerCanvas" instance=ExtResource("4_owd80")]
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
+offset_top = -14.0
+offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 0
 
-[node name="OpponentHands" type="HBoxContainer" parent="CanvasLayer"]
+[node name="OpponentHands" type="HBoxContainer" parent="PokerCanvas"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -138,22 +143,22 @@ offset_right = 468.0
 offset_bottom = 263.0
 grow_horizontal = 2
 
-[node name="OpponentHand" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
+[node name="OpponentHand" parent="PokerCanvas/OpponentHands" instance_placeholder="res://scenes/opponent_hand.tscn"]
 layout_mode = 2
 
-[node name="OpponentHand2" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
+[node name="OpponentHand2" parent="PokerCanvas/OpponentHands" instance_placeholder="res://scenes/opponent_hand.tscn"]
 layout_mode = 2
 
-[node name="OpponentHand3" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
+[node name="OpponentHand3" parent="PokerCanvas/OpponentHands" instance_placeholder="res://scenes/opponent_hand.tscn"]
 layout_mode = 2
 
-[node name="OpponentHand4" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
+[node name="OpponentHand4" parent="PokerCanvas/OpponentHands" instance_placeholder="res://scenes/opponent_hand.tscn"]
 layout_mode = 2
 
-[node name="OpponentHand5" parent="CanvasLayer/OpponentHands" instance=ExtResource("6_jk6yg")]
+[node name="OpponentHand5" parent="PokerCanvas/OpponentHands" instance_placeholder="res://scenes/opponent_hand.tscn"]
 layout_mode = 2
 
-[node name="StateLabel" type="Label" parent="CanvasLayer"]
+[node name="StateLabel" type="Label" parent="PokerCanvas"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -164,6 +169,6 @@ offset_bottom = 47.0
 grow_horizontal = 2
 text = "State"
 
-[connection signal="pressed" from="CanvasLayer/StartButton" to="PokerManager" method="_on_start_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/add Oppt Button" to="OpponentManager" method="_on_add_oppt_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Step Button" to="PokerManager" method="_on_step_button_pressed"]
+[connection signal="pressed" from="PokerCanvas/StartButton" to="PokerManager" method="_on_start_button_pressed"]
+[connection signal="pressed" from="PokerCanvas/add Oppt Button" to="OpponentManager" method="_on_add_oppt_button_pressed"]
+[connection signal="pressed" from="PokerCanvas/Step Button" to="PokerManager" method="_on_step_button_pressed"]

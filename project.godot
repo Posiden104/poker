@@ -11,13 +11,14 @@ config_version=5
 [application]
 
 config/name="Poker"
-run/main_scene="res://scenes/Poker.tscn"
+run/main_scene="res://scripts/multiplayer/multiplayerScene.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 SIGNAL_BUS="*res://scripts/signal_bus.gd"
+GameManager="*res://scripts/game_manager.gd"
 
 [display]
 

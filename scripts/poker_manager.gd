@@ -1,15 +1,21 @@
 class_name PokerManager
 extends Node2D
 
+@export_category("Managers")
 @export var deck_manager: DeckManager
 @export var opponent_manager: OpponentManager
+@export var deal_timer: Timer
+
+@export_category("UI")
 @export var start_button: Button
 @export var add_oppt_button: Button
 @export var step_button: Button
+@export var state_label: Label
 @export var center_cards: CenterCardHand
+@export var poker_canvas: CanvasLayer
 
-@onready var deal_timer = $DealTimer
-@onready var state_label = $"../CanvasLayer/StateLabel"
+@export_category("Players")
+@export var local_player: HandBase
 
 var hand_limit = 2
 
@@ -18,59 +24,68 @@ var active_player_pointer: int = 0
 var rounds_dealt = 0
 var deal_target = 0
 
-enum States {HAND_SETUP, SHUFFLE, DEALING, FIRST_BET, FLOP, FLOP_BET, TURN, TURN_BET, RIVER, RIVER_BET, REVEAL, CLEANUP}
-var state: States = States.HAND_SETUP
+enum State {HAND_SETUP, SHUFFLE, DEALING, FIRST_BET, FLOP, FLOP_BET, TURN, TURN_BET, RIVER, RIVER_BET, REVEAL, CLEANUP}
+var state: State = State.HAND_SETUP
 
 func _ready():
 	SIGNAL_BUS.register_player.connect(register_player)
 	SIGNAL_BUS.unregister_player.connect(unregister_player)
+
+func start():
+	poker_canvas.visible = true
 	state_label.text = "Hand setup"
 	step_button.visible = false
 	center_cards.setup()
+	for i in GameManager.Players:
+		var player = GameManager.Players[i]
+		if player.id == multiplayer.get_unique_id():
+			local_player.set_name_label(player.name)
+			local_player.setup()
+		else:
+			opponent_manager.add_opponent(player.name)
 
 func step():
 	step_button.disabled = true
 	step_button.visible = false
 	
-	state += 1
-	if state > States.CLEANUP:
+	state = (int(state) + 1) as State
+	if state > State.CLEANUP:
 		state = 0
 		
 	match state:
-		States.HAND_SETUP:
+		State.HAND_SETUP:
 			step()
-		States.SHUFFLE:
+		State.SHUFFLE:
 			state_label.text = "shuffle"
 			shuffle()
-		States.DEALING:
+		State.DEALING:
 			state_label.text = "dealing"
 			deal_hands()
-		States.FIRST_BET:
+		State.FIRST_BET:
 			state_label.text = "first bet"
 			bet()
-		States.FLOP:
+		State.FLOP:
 			state_label.text = "flop"
 			deal(3)
-		States.FLOP_BET:
+		State.FLOP_BET:
 			state_label.text = "flop bet"
 			bet()
-		States.TURN:
+		State.TURN:
 			state_label.text = "turn"
 			deal(1)
-		States.TURN_BET:
+		State.TURN_BET:
 			state_label.text = "turn bet"
 			bet()
-		States.RIVER:
+		State.RIVER:
 			state_label.text = "river"
 			deal(1)
-		States.RIVER_BET:
+		State.RIVER_BET:
 			state_label.text = "river bet"
 			bet()
-#make sure this gets in there
-		States.REVEAL:
+		State.REVEAL:
 			state_label.text = "reveal"
 			reveal()
-		States.CLEANUP:
+		State.CLEANUP:
 			state_label.text = "cleanup"
 			add_oppt_button.visible = true
 			start_button.visible = true

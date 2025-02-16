@@ -3,6 +3,7 @@ extends Control
 
 @export var hand_container: HBoxContainer
 @export var dealable: Dealable
+@export var name_label: Label
 
 var cards: Array[Card]
 var id: int = -1
@@ -10,7 +11,10 @@ var id: int = -1
 func setup():
 	SIGNAL_BUS.register_player.emit(self)
 	clear()
-	
+
+func set_name_label(label_name):
+	name_label.text = label_name
+
 func clear():
 	for child in hand_container.get_children():
 		child.queue_free()

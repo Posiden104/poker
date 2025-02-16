@@ -1,15 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://mr6p4ojsgbdx"]
+[gd_scene load_steps=3 format=3 uid="uid://mr6p4ojsgbdx"]
 
 [ext_resource type="Script" path="res://scripts/player_hand.gd" id="1_xkl0i"]
-[ext_resource type="PackedScene" uid="uid://dufo1yxbiyc1y" path="res://deck_manager/scenes/ui/ui_card.tscn" id="2_eaif5"]
 [ext_resource type="PackedScene" uid="uid://c63y82rl7wj27" path="res://deck_manager/scenes/dealable.tscn" id="3_dwlgy"]
 
-[node name="Hand" type="Control" node_paths=PackedStringArray("hand_container", "dealable")]
+[node name="Hand" type="Control" node_paths=PackedStringArray("hand_container", "dealable", "name_label")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_xkl0i")
-hand_container = NodePath("MarginContainer/Hand")
+hand_container = NodePath("MarginContainer/VBoxContainer/Hand")
 dealable = NodePath("Dealable")
+name_label = NodePath("MarginContainer/VBoxContainer/Name Label")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -28,13 +28,21 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 10
 
-[node name="Hand" type="HBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Card" parent="MarginContainer/Hand" instance=ExtResource("2_eaif5")]
+[node name="Name Label" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Player Name"
+horizontal_alignment = 1
+
+[node name="Hand" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="Card2" parent="MarginContainer/Hand" instance=ExtResource("2_eaif5")]
+[node name="Card" parent="MarginContainer/VBoxContainer/Hand" instance_placeholder="res://deck_manager/scenes/ui/ui_card.tscn"]
+layout_mode = 2
+
+[node name="Card2" parent="MarginContainer/VBoxContainer/Hand" instance_placeholder="res://deck_manager/scenes/ui/ui_card.tscn"]
 layout_mode = 2
 
 [node name="Dealable" parent="." instance=ExtResource("3_dwlgy")]
