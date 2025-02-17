@@ -14,13 +14,14 @@ func _ready():
 		#c.unregister_player()
 		c.queue_free()
 
-func add_opponent(opponent_name = "Opponent"):
+func add_opponent(opponent_name, opponent_id):
 	var o = OpponentScene.instantiate()
 	opponent_hbox.add_child(o)
 	opponents.push_back(o)
 	o.set_name_label(opponent_name)
+	o.set_player_id(opponent_id)
 	o.setup()
-	
+
 
 # Returns true if there are more opponents to deal
 func deal_opponent(card: Card, deck: Deck) -> bool:
@@ -32,8 +33,8 @@ func deal_opponent(card: Card, deck: Deck) -> bool:
 		next_opponent_id = 0
 		return true
 	return false
-	
 
 
 func _on_add_oppt_button_pressed():
-	add_opponent()
+	var oppt = GameManager.add_ai_player()
+	add_opponent(oppt.name, oppt.id)

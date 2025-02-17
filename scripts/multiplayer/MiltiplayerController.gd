@@ -1,12 +1,19 @@
 class_name MultiplayerScene
 extends Control
 
+@export_category("Connection Information")
+@export var address := "127.0.0.1"
+@export var port := 8910
 
-@export var address = "127.0.0.1"
-@export var port = 8910
-@onready var poker = $Poker
+@export_category("Lobby Items")
+@export var host_button: Button
+@export var join_button: Button
+@export var start_button: Button
+@export var message_box: TextEdit
+@onready var host_instructions = $HostInstructions
 
 var peer
+var host_instructions_sent = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,6 +21,11 @@ func _ready():
 	multiplayer.peer_disconnected.connect(player_disconnected)
 	multiplayer.connected_to_server.connect(connected_to_server)
 	multiplayer.connection_failed.connect(connection_failed)
+	
+	host_button.visible = true
+	join_button.visible = true
+	start_button.visible = false
+	host_instructions.visible = false
 
 # called on server and clients
 func peer_connected(id):
@@ -36,7 +48,15 @@ func send_player_information(name, id):
 			"name": name,
 			"id": id
 		}
-		
+		add_text_to_message_box("%s joined" % name)
+	
+	if multiplayer.get_unique_id() == id and id != 1:
+		add_text_to_message_box("Please wait for the host to start the game.")
+	
+	if multiplayer.get_unique_id() == 1 and !host_instructions_sent:
+		add_text_to_message_box("Press \"Start Game\" when everyone has joined.")
+		host_instructions_sent = true
+	
 	if multiplayer.is_server():
 		for i in GameManager.Players:
 			send_player_information.rpc(GameManager.Players[i].name, i)
@@ -51,7 +71,9 @@ func start_game():
 	get_tree().root.add_child(poker)
 	self.hide()
 	poker.get_child(0).start()
-	
+
+func add_text_to_message_box(text):
+	message_box.text = "%s%s\n" % [message_box.text, text]
 
 func _on_host_pressed():
 	peer = ENetMultiplayerPeer.new()
@@ -65,8 +87,10 @@ func _on_host_pressed():
 	multiplayer.set_multiplayer_peer(peer)
 	print("Waiting for players!")
 	send_player_information($LineEdit.text, multiplayer.get_unique_id())
-	
-
+	host_button.visible = false
+	join_button.visible = false
+	start_button.visible = true
+	host_instructions.visible = true
 
 func _on_join_pressed():
 	peer = ENetMultiplayerPeer.new()
@@ -74,7 +98,10 @@ func _on_join_pressed():
 	peer.get_host().compress(ENetConnection.COMPRESS_RANGE_CODER)
 	
 	multiplayer.set_multiplayer_peer(peer)
-
+	
+	host_button.visible = false
+	join_button.visible = false
+	start_button.visible = false
 
 func _on_start_game_pressed():
 	start_game.rpc()

@@ -42,7 +42,7 @@ func start():
 			local_player.set_name_label(player.name)
 			local_player.setup()
 		else:
-			opponent_manager.add_opponent(player.name)
+			opponent_manager.add_opponent(player.name, player.id)
 
 func step():
 	step_button.disabled = true
@@ -92,14 +92,14 @@ func step():
 			cleanup()
 
 func register_player(player_hand: HandBase):
-	print("player registered")
 	players.append(player_hand)
 	player_hand.set_id(players.size() - 1)
 
 func unregister_player(player_hand: HandBase):
-	for i in players.size():
-		if players[i].id == player_hand.id:
-			players.remove_at(i)
+	players.erase(player_hand)
+	#for i in players.size():
+		#if players[i].id == player_hand.id:
+			#players.remove_at(i)
 
 func shuffle():
 	add_oppt_button.visible = false
