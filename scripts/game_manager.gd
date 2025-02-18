@@ -5,6 +5,7 @@ var Players = {}
 var ai_player_limit = 1000
 var ai_players = 1000
 
+var deck: Deck
 
 func add_ai_player():
 	ai_players -= 1

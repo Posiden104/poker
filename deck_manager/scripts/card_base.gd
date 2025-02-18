@@ -2,14 +2,15 @@ class_name CardBase
 extends Node
 
 @export var card: Card
-@export var deck: Deck
 @export var card_back: Texture2D
 @export var is_face_up: bool = false
 @export var card_image = TextureRect
 
 const default_card_back = preload("res://deck_manager/resources/images/cards/cardBack_red5.png")
+var deck: Deck
 
 func _ready():
+	deck = GameManager.deck
 	hide_card()
 	load_card()
 	show_card()

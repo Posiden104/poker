@@ -32,10 +32,15 @@ func card_count() -> int:
 func unregister_player():
 	SIGNAL_BUS.unregister_player.emit(self)
 
-func deal(card: Card, deck: Deck):
-	var c = dealable.deal(card, deck)
-	cards.append(card)
-	hand_container.add_child(c)
+@rpc("any_peer", "call_local")
+func deal(_data):
+	print("Deal called on base hand")
+	pass
+
+@rpc("any_peer", "call_local")
+func deal_down(_data):
+	print("Deal down called on base hand")
+	pass
 
 func request_bet():
 	return 1

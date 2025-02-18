@@ -24,10 +24,10 @@ func add_opponent(opponent_name, opponent_id):
 
 
 # Returns true if there are more opponents to deal
-func deal_opponent(card: Card, deck: Deck) -> bool:
+func deal_opponent(card: Card) -> bool:
 	if next_opponent_id > opponents.size() - 1:
 		return true
-	opponents[next_opponent_id].deal(card, deck)
+	opponents[next_opponent_id].deal(card)
 	next_opponent_id += 1
 	if next_opponent_id > opponents.size() - 1:
 		next_opponent_id = 0

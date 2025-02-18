@@ -132,6 +132,7 @@ offset_top = -14.0
 offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 0
+multiplayer_id = 0
 
 [node name="OpponentHands" type="HBoxContainer" parent="PokerCanvas"]
 anchors_preset = 5
@@ -145,18 +146,23 @@ grow_horizontal = 2
 
 [node name="OpponentHand" parent="PokerCanvas/OpponentHands" instance_placeholder="res://scenes/opponent_hand.tscn"]
 layout_mode = 2
+multiplayer_id = 0
 
 [node name="OpponentHand2" parent="PokerCanvas/OpponentHands" instance_placeholder="res://scenes/opponent_hand.tscn"]
 layout_mode = 2
+multiplayer_id = 0
 
 [node name="OpponentHand3" parent="PokerCanvas/OpponentHands" instance_placeholder="res://scenes/opponent_hand.tscn"]
 layout_mode = 2
+multiplayer_id = 0
 
 [node name="OpponentHand4" parent="PokerCanvas/OpponentHands" instance_placeholder="res://scenes/opponent_hand.tscn"]
 layout_mode = 2
+multiplayer_id = 0
 
 [node name="OpponentHand5" parent="PokerCanvas/OpponentHands" instance_placeholder="res://scenes/opponent_hand.tscn"]
 layout_mode = 2
+multiplayer_id = 0
 
 [node name="StateLabel" type="Label" parent="PokerCanvas"]
 anchors_preset = 5
