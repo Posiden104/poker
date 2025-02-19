@@ -33,6 +33,7 @@ func _ready():
 	SIGNAL_BUS.register_player.connect(register_player)
 	SIGNAL_BUS.unregister_player.connect(unregister_player)
 	GameManager.deck = deck_manager.deck
+	GameManager.deck_manager = deck_manager
 
 func start():
 	poker_canvas.visible = true
@@ -117,9 +118,8 @@ func deal_hands():
 	var active_player = players[active_player_pointer]
 	
 	var data = inst_to_dict(c)
-	print("deal to %d" % active_player.multiplayer_id)
-	active_player.deal.rpc_id(active_player.multiplayer_id, data)
-	active_player.deal_down.rpc(down_card_dict)
+	local_player.deal.rpc_id(active_player.multiplayer_id, data)
+	active_player.deal_down.rpc()
 	
 	active_player_pointer += 1
 	

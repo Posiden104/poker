@@ -32,14 +32,18 @@ func card_count() -> int:
 func unregister_player():
 	SIGNAL_BUS.unregister_player.emit(self)
 
-@rpc("any_peer", "call_local")
+@rpc("call_local")
 func deal(_data):
-	print("Deal called on base hand")
+	#print("[%d] - Deal called on base hand" % multiplayer_id)
 	pass
+	
+#func deal_real_card(card: Card):
+	#print("[%d] - Deal real card called on base hand" % multiplayer_id)
+	#pass
 
-@rpc("any_peer", "call_local")
-func deal_down(_data):
-	print("Deal down called on base hand")
+@rpc("call_local")
+func deal_down():
+	#print("[%d] - Deal down called on base hand" % multiplayer_id)
 	pass
 
 func request_bet():

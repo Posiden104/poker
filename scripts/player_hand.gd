@@ -2,15 +2,17 @@ class_name PlayerHand
 extends HandBase
 
 
-@rpc("any_peer", "call_local")
+@rpc("call_local")
 func deal(data):
-	print("player deal")
-	var card = dict_to_inst(data)
-	print("%d dealt card value %d" % [multiplayer.get_unique_id(), card.value])
+	#print("[%d] - deal" % multiplayer_id)
+	var card = GameManager.deck_manager.get_card(dict_to_inst(data))
 	var c = dealable.deal(card)
 	cards.append(card)
 	hand_container.add_child(c)
+	
+#func deal_real_card(card: Card):
+	#print("[%d] - dealt card value %d" % [multiplayer.get_unique_id(), card.value])
+	#var c = dealable.deal(card)
+	#cards.append(card)
+	#hand_container.add_child(c)
 
-@rpc("any_peer", "call_local")
-func deal_down(_data):
-	pass

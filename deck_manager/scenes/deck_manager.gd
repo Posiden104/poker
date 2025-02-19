@@ -23,3 +23,8 @@ func discard(card: Card):
 
 func cards_left() -> int:
 	return deck.cards_left()
+
+func get_card(card: Card):
+	for c in deck.cards:
+		if c.value == card.value and c.suit == card.suit:
+			return c.duplicate()

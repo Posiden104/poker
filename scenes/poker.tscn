@@ -132,7 +132,6 @@ offset_top = -14.0
 offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 0
-multiplayer_id = 0
 
 [node name="OpponentHands" type="HBoxContainer" parent="PokerCanvas"]
 anchors_preset = 5
