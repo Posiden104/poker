@@ -34,6 +34,10 @@ func _ready():
 	SIGNAL_BUS.unregister_player.connect(unregister_player)
 	GameManager.deck = deck_manager.deck
 	GameManager.deck_manager = deck_manager
+	if not multiplayer.is_server():
+		step_button.visible = false
+		start_button.visible = false
+		add_oppt_button.visible = false
 
 func start():
 	poker_canvas.visible = true
@@ -49,6 +53,7 @@ func start():
 		else:
 			opponent_manager.add_opponent(player.name, player.id)
 
+@rpc("call_local")
 func step():
 	step_button.disabled = true
 	step_button.visible = false
@@ -59,7 +64,7 @@ func step():
 		
 	match state:
 		State.HAND_SETUP:
-			step()
+			step.rpc()
 		State.SHUFFLE:
 			state_label.text = "shuffle"
 			shuffle()
@@ -92,9 +97,10 @@ func step():
 			reveal()
 		State.CLEANUP:
 			state_label.text = "cleanup"
-			add_oppt_button.visible = true
-			start_button.visible = true
 			cleanup()
+			if multiplayer.is_server():
+				add_oppt_button.visible = true
+				start_button.visible = true
 
 func register_player(player_hand: HandBase):
 	players.append(player_hand)
@@ -107,11 +113,13 @@ func unregister_player(player_hand: HandBase):
 			#players.remove_at(i)
 
 func shuffle():
+	if not multiplayer.is_server(): return
 	add_oppt_button.visible = false
 	deck_manager.shuffle()
-	step()
+	step.rpc()
 
 func deal_hands():
+	if not multiplayer.is_server(): return
 	if not deal_timer.timeout.is_connected(deal_hands):
 		deal_timer.timeout.connect(deal_hands)
 	var c: Card = deck_manager.deal()
@@ -130,15 +138,17 @@ func deal_hands():
 	if rounds_dealt == hand_limit:
 		deal_timer.stop()
 		deal_timer.timeout.disconnect(deal_hands)
-		step()
+		step.rpc()
 	else:
 		deal_timer.start()
 
 func bet():
+	if not multiplayer.is_server(): return
 	step_button.disabled = false
 	step_button.visible = true
 
 func deal(number_of_cards):
+	if not multiplayer.is_server(): return
 	var c = deck_manager.deal()
 	deck_manager.discard(c)
 	deal_target = number_of_cards
@@ -146,13 +156,14 @@ func deal(number_of_cards):
 	deal_center()
 
 func deal_center():
+	if not multiplayer.is_server(): return
 	var c = deck_manager.deal()
 	center_cards.deal.rpc(inst_to_dict(c))
 	deal_target -= 1
 	if deal_target == 0:
 		deal_timer.stop()
 		deal_timer.timeout.disconnect(deal_center)
-		step()
+		step.rpc()
 		return
 	deal_timer.start()
 
@@ -179,8 +190,8 @@ func cleanup():
 
 func _on_start_button_pressed():
 	start_button.visible = false
-	step()
+	step.rpc()
 
 func _on_step_button_pressed():
-	step()
+	step.rpc()
 
