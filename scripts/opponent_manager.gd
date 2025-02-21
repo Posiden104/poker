@@ -19,7 +19,7 @@ func add_opponent(opponent_name, opponent_id):
 	opponent_hbox.add_child(o)
 	opponents.push_back(o)
 	o.set_name_label(opponent_name)
-	o.set_player_id(opponent_id)
+	o.set_multiplayer_id(opponent_id)
 	o.setup()
 
 

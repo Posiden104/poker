@@ -7,7 +7,6 @@ extends Control
 @export var multiplayer_id: int
 
 var cards: Array[Card]
-var id: int = -1
 
 func setup():
 	SIGNAL_BUS.register_player.emit(self)
@@ -16,15 +15,12 @@ func setup():
 func set_name_label(label_name):
 	name_label.text = label_name
 	
-func set_player_id(id):
+func set_multiplayer_id(id):
 	multiplayer_id = id
 
 func clear():
 	for child in hand_container.get_children():
 		child.queue_free()
-
-func set_id(_id):
-	id = _id
 
 func card_count() -> int:
 	return cards.size()
@@ -45,6 +41,12 @@ func deal(_data):
 func deal_down():
 	#print("[%d] - Deal down called on base hand" % multiplayer_id)
 	pass
+
+func reveal(c1, c2):
+	clear()
+	deal(c1)
+	deal(c2)
+	show_hand()
 
 func request_bet():
 	return 1

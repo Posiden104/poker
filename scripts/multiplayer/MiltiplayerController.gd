@@ -46,7 +46,8 @@ func send_player_information(name, id):
 	if !GameManager.Players.has(id):
 		GameManager.Players[id] = {
 			"name": name,
-			"id": id
+			"id": id,
+			"cards": []
 		}
 		add_text_to_message_box("%s joined" % name)
 	

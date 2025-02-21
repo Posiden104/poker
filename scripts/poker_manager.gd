@@ -20,6 +20,7 @@ extends Node2D
 var hand_limit = 2
 
 var players: Array[HandBase]
+#var server_players: Array[ServerPlayer]
 var active_player_pointer: int = 0
 var rounds_dealt = 0
 var deal_target = 0
@@ -49,7 +50,7 @@ func start():
 		if player.id == multiplayer.get_unique_id():
 			local_player.set_name_label(player.name)
 			local_player.setup()
-			local_player.set_player_id(player.id)
+			local_player.set_multiplayer_id(player.id)
 		else:
 			opponent_manager.add_opponent(player.name, player.id)
 
@@ -104,7 +105,12 @@ func step():
 
 func register_player(player_hand: HandBase):
 	players.append(player_hand)
-	player_hand.set_id(players.size() - 1)
+	#player_hand.set_id(players.size() - 1)
+	
+	#if multiplayer.is_server():
+		#var sp = ServerPlayer.new()
+		#sp.multiplayer_id = player_hand.multiplayer_id
+		#server_players.append(sp)
 
 func unregister_player(player_hand: HandBase):
 	players.erase(player_hand)
@@ -124,10 +130,14 @@ func deal_hands():
 		deal_timer.timeout.connect(deal_hands)
 	var c: Card = deck_manager.deal()
 	var active_player = players[active_player_pointer]
+	#var server_player = server_players[active_player_pointer]
+	var p = GameManager.find_player(active_player.multiplayer_id)
+	p.cards.append(c)
 	
 	var data = inst_to_dict(c)
 	local_player.deal.rpc_id(active_player.multiplayer_id, data)
 	active_player.deal_down.rpc()
+	#server_player.cards.append(c)
 	
 	active_player_pointer += 1
 	
@@ -168,11 +178,22 @@ func deal_center():
 	deal_timer.start()
 
 func reveal():
-	for p in players:
-		p.show_hand()
+	if not multiplayer.is_server(): return
+	for i in players.size():
+		var p = players[i]
+		var sp = GameManager.find_player(p.multiplayer_id)
+		var c1 = inst_to_dict(sp.cards[0])
+		var c2 = inst_to_dict(sp.cards[1])
+		reveal_player.rpc(p.multiplayer_id, c1, c2)
 		
 	step_button.visible = true
 	step_button.disabled = false
+
+@rpc("call_local")
+func reveal_player(id, c1, c2):
+	for p in players:
+		if p.multiplayer_id == id:
+			p.reveal(c1, c2)
 
 func cleanup():
 	for c in center_cards.cards:
@@ -184,7 +205,10 @@ func cleanup():
 		for c in p.cards:
 			deck_manager.discard(c)
 		p.clear()
-		
+	
+	for sp in GameManager.Players:
+		sp.cards.clear()
+	
 	rounds_dealt = 0
 	
 
