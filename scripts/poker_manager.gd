@@ -193,7 +193,10 @@ func reveal():
 func reveal_player(id, c1, c2):
 	for p in players:
 		if p.multiplayer_id == id:
-			p.reveal(c1, c2)
+			if p is PlayerHand:
+				(p as PlayerHand).reveal(c1, c2)
+			else:
+				(p as OpponentHand).reveal(c1, c2)
 
 func cleanup():
 	for c in center_cards.cards:

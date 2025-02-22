@@ -19,6 +19,7 @@ func set_multiplayer_id(id):
 	multiplayer_id = id
 
 func clear():
+	cards.clear()
 	for child in hand_container.get_children():
 		child.queue_free()
 
@@ -29,8 +30,13 @@ func unregister_player():
 	SIGNAL_BUS.unregister_player.emit(self)
 
 @rpc("call_local")
-func deal(_data):
+func deal(data):
 	#print("[%d] - Deal called on base hand" % multiplayer_id)
+	#print("[%d] - deal" % multiplayer_id)
+	var card = GameManager.deck_manager.get_card(dict_to_inst(data))
+	var c = dealable.deal(card)
+	cards.append(card)
+	hand_container.add_child(c)
 	pass
 	
 #func deal_real_card(card: Card):
