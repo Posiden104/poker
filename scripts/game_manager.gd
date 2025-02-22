@@ -17,7 +17,8 @@ func add_ai_player():
 	ai_players -= 1
 	Players[ai_players] = {
 		"name": "Opponent(AI) %d" % (ai_player_limit - ai_players),
-		"id": ai_players
+		"id": ai_players,
+		"cards": []
 	}
 	
 	return Players[ai_players]

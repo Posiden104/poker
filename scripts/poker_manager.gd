@@ -209,7 +209,8 @@ func cleanup():
 			deck_manager.discard(c)
 		p.clear()
 	
-	for sp in GameManager.Players:
+	for i in GameManager.Players:
+		var sp = GameManager.Players[i]
 		sp.cards.clear()
 	
 	rounds_dealt = 0
