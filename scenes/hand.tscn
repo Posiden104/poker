@@ -3,13 +3,14 @@
 [ext_resource type="Script" path="res://scripts/player_hand.gd" id="1_xkl0i"]
 [ext_resource type="PackedScene" uid="uid://c63y82rl7wj27" path="res://deck_manager/scenes/dealable.tscn" id="3_dwlgy"]
 
-[node name="Hand" type="Control" node_paths=PackedStringArray("hand_container", "dealable", "name_label")]
+[node name="Hand" type="Control" node_paths=PackedStringArray("hand_container", "dealable", "name_label", "best_hand_label")]
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_xkl0i")
 hand_container = NodePath("MarginContainer/VBoxContainer/Hand")
 dealable = NodePath("Dealable")
 name_label = NodePath("MarginContainer/VBoxContainer/Name Label")
+best_hand_label = NodePath("MarginContainer/VBoxContainer/BestHandLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -44,6 +45,11 @@ layout_mode = 2
 
 [node name="Card2" parent="MarginContainer/VBoxContainer/Hand" instance_placeholder="res://deck_manager/scenes/ui/ui_card.tscn"]
 layout_mode = 2
+
+[node name="BestHandLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Best Hand:
+"
 
 [node name="Dealable" parent="." instance=ExtResource("3_dwlgy")]
 layout_mode = 1

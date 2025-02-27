@@ -5,6 +5,7 @@ extends Control
 @export var dealable: Dealable
 @export var name_label: Label
 @export var multiplayer_id: int
+@export var best_hand_label: Label
 
 var cards: Array[Card]
 var center_cards: Array[Card]
@@ -20,9 +21,11 @@ func set_name_label(label_name):
 func set_multiplayer_id(id):
 	multiplayer_id = id
 
-func clear():
+func clear(clear_center = true):
+	best_hand_label.text = ""
 	cards.clear()
-	center_cards.clear()
+	if clear_center: 
+		center_cards.clear()
 	for child in hand_container.get_children():
 		child.queue_free()
 
@@ -55,10 +58,11 @@ func deal_down():
 	pass
 
 func reveal(c1, c2):
-	clear()
+	clear(false)
 	deal(c1)
 	deal(c2)
 	show_hand()
+	eval_hand()
 
 func request_bet():
 	return 1
@@ -69,6 +73,38 @@ func fold():
 func show_hand():
 	for c in hand_container.get_children():
 		c.set_is_face_up(true)
+
+func eval_hand():
+	var best_hand = best_poker_hand()
+	best_hand_label.text = "Best Hand: %s" % best_hand
+
+func get_combinations(cards: Array, k: int) -> Array:
+	var result = []
+	_backtrack_combinations(cards, k, 0, [], result)
+	return result
+
+func _backtrack_combinations(cards: Array, k: int, start: int, combo: Array, result: Array) -> void:
+	if combo.size() == k:
+		result.append(combo.duplicate())
+		return
+	
+	for i in range(start, cards.size()):
+		combo.append(cards[i])
+		_backtrack_combinations(cards, k, i + 1, combo, result)
+		combo.pop_back()
+
+func best_poker_hand() -> Dictionary:
+	var all_cards = cards + center_cards
+	var best_hand = { "rank": 0 } # Default to worst hand
+	
+	print("%d : %d" % [multiplayer_id, all_cards.size()])
+	
+	for hand in get_combinations(all_cards, 5):
+		var hand_rank = evaluate_hand(hand)
+		if hand_rank["rank"] > best_hand["rank"]:
+			best_hand = hand_rank
+		
+	return best_hand
 
 func evaluate_hand(hand: Array) -> Dictionary:
 	var values = hand.map(func(c): return c.value)
@@ -89,17 +125,29 @@ func evaluate_hand(hand: Array) -> Dictionary:
 	elif 4 in value_counts.values():
 		hand_rank = { "rank": 8, "type": "Four of a Kind", "value": values[-1] }
 	elif 3 in value_counts.values() and 2 in value_counts.values():
-		hand_rank = { "rank": 7, "type": "Full House" }
+		hand_rank = { "rank": 7, "type": "Full House"}
 	elif is_flush:
-		hand_rank = { "rank": 6, "type": "Flush" }
+		hand_rank = { "rank": 6, "type": "Flush", "high": values[-1]}
 	elif is_straight:
-		hand_rank = { "rank": 5, "type": "Straight" }
+		hand_rank = { "rank": 5, "type": "Straight", "high": values[-1] }
 	elif 3 in value_counts.values():
-		hand_rank = { "rank": 4, "type": "Three of a Kind" }
+		var value = 0
+		for v in value_counts:
+			if value_counts[v] == 3:
+				value = v
+		hand_rank = { "rank": 4, "type": "Three of a Kind", "value": value }
 	elif value_counts.values().count(2) == 2:
-		hand_rank = { "rank": 3, "type": "Two Pair" }
+		var value = 0
+		for v in value_counts:
+			if value_counts[v] == 2:
+				value = v
+		hand_rank = { "rank": 3, "type": "Two Pair", "value": value }
 	elif 2 in value_counts.values():
-		hand_rank = { "rank": 2, "type": "One Pair" }
+		var value = 0
+		for v in value_counts:
+			if value_counts[v] == 2:
+				value = v
+		hand_rank = { "rank": 2, "type": "One Pair", "value": value }
 	else:
 		hand_rank = { "rank": 1, "type": "High Card", "high": values[-1] }
 

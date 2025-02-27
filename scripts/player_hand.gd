@@ -1,6 +1,9 @@
 class_name PlayerHand
 extends HandBase
 
+func center_card_dealt(_card: Card):
+	super.center_card_dealt(_card)
+	eval_hand()
 
 @rpc("call_local")
 func deal(data):

@@ -4,7 +4,7 @@ extends HandBase
 func setup():
 	clear()
 	
-func clear():
+func clear(_cc = false):
 	for child in hand_container.get_children():
 		child.queue_free()
 
@@ -15,3 +15,4 @@ func deal(data):
 	var c = dealable.deal(card)
 	cards.append(card)
 	hand_container.add_child(c)
+	SIGNAL_BUS.center_card_dealt.emit(card)
