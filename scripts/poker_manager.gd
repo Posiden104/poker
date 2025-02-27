@@ -20,7 +20,6 @@ extends Node2D
 var hand_limit = 2
 
 var players: Array[HandBase]
-#var server_players: Array[ServerPlayer]
 var active_player_pointer: int = 0
 var rounds_dealt = 0
 var deal_target = 0
